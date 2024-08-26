@@ -1,0 +1,122 @@
+<mat-toolbar class="toolbar">
+  <button
+    mat-icon-button
+    (click)="sidenav.toggle()"
+    id="menuIcon"
+    aria-label="Example icon-button with menu icon"
+    [class.open]="sidenav.opened"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="logoContainer">
+    <h1 class="mainTitle"><a href="/">Earth Metrics</a></h1>
+    <!-- <a><img class="logo" src="../../../assets/img/EarthMetricsLogo.jpg" alt="EarthMetrics Logo"/></a> -->
+  </span>
+
+  <span class="spacer"></span>
+
+  <button
+    class="themeSwitch"
+    type="button"
+    aria-label="Toggle theme"
+    mat-icon-button
+    (click)="toggleTheme()"
+    matTooltip="Toggle theme"
+  >
+    <mat-icon>
+      {{ theme() === "light" ? "light_mode" : "dark_mode" }}
+    </mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav
+    #sidenav
+    [fixedInViewport]="true"
+    [fixedTopGap]="60"
+    mode="over"
+    (opened)="overlay = true"
+    (closed)="overlay = false"
+  >
+    <div class="sideNavItems">
+      <div>
+        <a
+          (click)="sidenav.close()"
+          
+          routerLink="/"
+          class="LogoItem"
+          ><img class="logo" src="../../../assets/img/EarthMetricsLogo.jpg" alt="EarthMetrics Logo"/></a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink="/"
+          class="sideMenuItem"
+          >Top Stories</a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink=""
+          class="sideMenuItem"
+          >New Stories</a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink="/"
+          class="sideMenuItem"
+          >Best Stories</a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink="/"
+          class="sideMenuItem"
+          >Ask Stories</a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink="/"
+          class="sideMenuItem"
+          >Show Stories</a
+        >
+      </div>
+      <div>
+        <a
+          (click)="sidenav.close()"
+          mat-button
+          routerLink="/"
+          class="sideMenuItem"
+          >Job Stories</a
+        >
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+  <div
+    class="overlay"
+    *ngIf="overlay"
+    (click)="sidenav.close()"
+    (keydown.enter)="sidenav.toggle()"
+    (keydown.space)="sidenav.toggle()"
+    tabindex="0"
+  ></div>
+</mat-sidenav-container>

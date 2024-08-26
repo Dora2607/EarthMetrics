@@ -31,12 +31,17 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/app/shared/theme/light.css",
+              "src/app/shared/theme/dark.css" 
+            ],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -90,6 +95,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -97,8 +103,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/app/styles/themes/light.css",
-              "src/app/styles/themes/dark.css"
+              "src/app/shared/theme/light.css",
+              "src/app/shared/theme/dark.css" 
             ],
             "scripts": []
           }

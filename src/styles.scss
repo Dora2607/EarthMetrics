@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-
+@use "@angular/material" as mat;
+@use "./app/app.component.theme" as app-theme;
 @include mat.core();
 
 // Define the theme object.
@@ -14,29 +14,40 @@
 //   )
 // ));
 
-
 // :root {
 //   @include mat.all-component-themes($EarthMetrics-theme);
 // }
 
-$light-theme: mat.define-theme((
-  color: (
-    use-system-variables: true
-  ),
-  typography: (
-    use-system-variables: true
+$light-theme: mat.define-theme(
+  (
+    color: (
+      use-system-variables: true,
+    ),
+    typography: (
+      use-system-variables: true,
+    ),
   )
-));
+);
 
-:root{
+:root {
   @include mat.all-component-themes($light-theme);
-  // @include layout-theme.theme($light-theme);
+  @include app-theme.theme($light-theme);
 
   @include mat.system-level-colors($light-theme);
-  @include mat.system-level-typography($light-theme)
+  @include mat.system-level-typography($light-theme);
 }
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1 {
+  font-family: "Croissant One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
