@@ -28,15 +28,15 @@
   .logoContainer {
     .mainTitle {
       padding-left: 1rem;
-
-      a {
-        text-decoration: none;
-        background: #006d77;
-        background: linear-gradient(to bottom right, #006d77 5%, #83c5be 85%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+      font-family: "Croissant One", serif;
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      background: $primary-color;
+      background: linear-gradient(to bottom right, $primary-color 5%, #83c5be 85%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 
@@ -49,29 +49,21 @@
   }
 }
 
-.mat-sidenav {
-  width: 50%;
+// Sidenav style
+
+.sidenav {
+  width: 45%;
   border-radius: 0;
   z-index: 3;
-}
 
-.sideNavItems {
+  .sideNavItems {
   display: flex;
   flex-direction: column;
   padding-left: 1rem;
-  .logoItem{
-    .logo{
-      width: 50px;
-    }
-  }
-  
   .sideMenuItem {
     margin-top: 20px;
   }
 }
-
-.main-content {
-  margin: 20px;
 }
 
 .overlay {
@@ -83,3 +75,16 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
+
+@media (min-width: $breakpoint-medium) {
+  .sidenav {
+    width: 30%;
+  }
+}
+
+@media (min-width:$breakpoint-large ) {
+  .sidenav {
+    width: 25%;
+  }
+}
+

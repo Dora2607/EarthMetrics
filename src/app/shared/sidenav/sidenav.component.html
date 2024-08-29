@@ -10,7 +10,7 @@
   </button>
 
   <span class="logoContainer">
-    <h1 class="mainTitle"><a href="/">Earth Metrics</a></h1>
+    <h1 ><a class="mainTitle" href="/">Earth Metrics</a></h1>
     <!-- <a><img class="logo" src="../../../assets/img/EarthMetricsLogo.jpg" alt="EarthMetrics Logo"/></a> -->
   </span>
 
@@ -33,6 +33,7 @@
 <mat-sidenav-container>
   <mat-sidenav
     #sidenav
+    class="sidenav"
     [fixedInViewport]="true"
     [fixedTopGap]="60"
     mode="over"
@@ -43,10 +44,10 @@
       <div>
         <a
           (click)="sidenav.close()"
-          
+          mat-button
           routerLink="/"
-          class="LogoItem"
-          ><img class="logo" src="../../../assets/img/EarthMetricsLogo.jpg" alt="EarthMetrics Logo"/></a
+          class="sideMenuItem"
+          >Home</a
         >
       </div>
       <div>
@@ -55,7 +56,7 @@
           mat-button
           routerLink="/"
           class="sideMenuItem"
-          >Top Stories</a
+          >Temperature Globali</a
         >
       </div>
       <div>
@@ -64,7 +65,7 @@
           mat-button
           routerLink=""
           class="sideMenuItem"
-          >New Stories</a
+          >Emissioni di CO2</a
         >
       </div>
       <div>
@@ -73,7 +74,7 @@
           mat-button
           routerLink="/"
           class="sideMenuItem"
-          >Best Stories</a
+          >Emissioni di Metano</a
         >
       </div>
       <div>
@@ -82,7 +83,7 @@
           mat-button
           routerLink="/"
           class="sideMenuItem"
-          >Ask Stories</a
+          >Emissioni di NO2</a
         >
       </div>
       <div>
@@ -91,23 +92,14 @@
           mat-button
           routerLink="/"
           class="sideMenuItem"
-          >Show Stories</a
-        >
-      </div>
-      <div>
-        <a
-          (click)="sidenav.close()"
-          mat-button
-          routerLink="/"
-          class="sideMenuItem"
-          >Job Stories</a
+          >Ghiaccio Polare</a
         >
       </div>
     </div>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="main-content">
+    <div class="mainContent">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

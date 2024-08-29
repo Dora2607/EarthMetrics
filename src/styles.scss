@@ -2,22 +2,6 @@
 @use "./app/app.component.theme" as app-theme;
 @include mat.core();
 
-// Define the theme object.
-// $EarthMetrics-theme: mat.define-theme((
-//   color: (
-//     theme-type: light,
-//     primary: mat.$azure-palette,
-//     tertiary: mat.$blue-palette,
-//   ),
-//   density: (
-//     scale: 0,
-//   )
-// ));
-
-// :root {
-//   @include mat.all-component-themes($EarthMetrics-theme);
-// }
-
 $light-theme: mat.define-theme(
   (
     color: (
@@ -37,6 +21,14 @@ $light-theme: mat.define-theme(
   @include mat.system-level-typography($light-theme);
 }
 
+
+// Breakpoint Variables
+$breakpoint-small: 600px;
+$breakpoint-medium: 960px;
+$breakpoint-large: 1280px;
+
+
+
 html,
 body {
   height: 100%;
@@ -46,8 +38,126 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+//Colors
+
+$primary-color: #006d77;
+
+// Typography Variables
+$font-size-xs: 12px;
+$font-size-sm: 16px;
+$font-size-md: 20px;
+$font-size-lg: 24px;
+$font-size-xl: 28px;
+$font-size-xxl: 32px;
+$font-size-xxxl: 36px;
+$font-size-xxxxl: 42px;
+$font-size-xxxxxl: 74px;
+
+// Typography
 h1 {
-  font-family: "Croissant One", serif;
-  font-weight: 400;
-  font-style: normal;
+  font-size: $font-size-xxl;
+}
+h2 {
+  font-size: $font-size-xl;
+}
+h3 {
+  font-size: $font-size-lg;
+}
+h4 {
+  font-size: $font-size-md;
+}
+h5 {
+  font-size: $font-size-sm;
+}
+h6,
+p{
+  font-size: $font-size-xs;
+  line-height: 1.3rem
+}
+
+// Media Queries
+@media (min-width: $breakpoint-small) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxl;
+  }
+  h2 {
+    font-size: $font-size-xxl;
+  }
+  h3 {
+    font-size: $font-size-xl;
+  }
+  h4 {
+    font-size: $font-size-lg;
+  }
+  h5 {
+    font-size: $font-size-md;
+  }
+  h6{
+    font-size: $font-size-sm;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxxl;
+  }
+  h2 {
+    font-size: $font-size-xxxl;
+  }
+  h3 {
+    font-size: $font-size-xxl;
+  }
+  h4 {
+    font-size: $font-size-xl;
+  }
+  h5 {
+    font-size: $font-size-lg;
+  }
+  h6{
+    font-size: $font-size-md;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxxxl;
+  }
+  h2 {
+    font-size: $font-size-xxxxl;
+  }
+  h3 {
+    font-size: $font-size-xxxl;
+  }
+  h4 {
+    font-size: $font-size-xxl;
+  }
+  h5 {
+    font-size: $font-size-xl;
+  }
+  h6,
+  p {
+    font-size: $font-size-lg;
+    line-height: 2rem
+  }
+}
+
+// Mixin for responsive card
+
+@mixin responsive-card($small, $medium, $large) {
+  width: 100%; 
+
+  @media (min-width: $breakpoint-small) {
+    width: $small;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    width: $medium; 
+  }
+
+  @media (min-width: $breakpoint-large) {
+    width: $large; 
+  }
 }

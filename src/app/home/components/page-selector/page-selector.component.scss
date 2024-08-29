@@ -1,0 +1,99 @@
+@import "../../../../styles.scss";
+
+
+.mainContainer{
+  padding: 2rem 3rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.card {
+  @include responsive-card(75%, 50%, 30%);
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:hover .cardContent .cardTitle {
+    text-shadow: 3px 3px 5px $primary-color;
+  }
+
+  &:hover .cardContent .cardDescription {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    text-shadow: 3px 3px 5px $primary-color;
+  }
+}
+
+.imageBox {
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    transition: 0.5s ease-in-out;
+  }
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid white;
+  border-radius: inherit;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.card:hover img {
+  filter: grayscale(1) brightness(0.6);
+}
+
+.card:hover::after {
+  opacity: 1;
+  inset: 20px;
+}
+
+.cardContent {
+  width: 80%;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  
+  .cardTitle {
+    margin-block: 1rem;
+  }
+
+  .cardDescription {
+    opacity: 0;
+    visibility: hidden; 
+  }
+
+}
+
+
+
+@media (min-width:$breakpoint-large ) {
+  .cardContainer {
+   
+    justify-content: space-around;
+  }
+}

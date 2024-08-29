@@ -1,0 +1,37 @@
+@import "../../../../styles.scss";
+
+.banner {
+  position: relative;
+  background-image: url("../../../../assets/img/Copertina.jpg");
+  text-align: left;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+  height: 600px;
+  color: white;
+  text-shadow: 3px 3px 5px $primary-color;
+  font-family: "Croissant One", serif;
+
+  .container {
+    position: absolute;
+    top: 55%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    text-align: right;
+    .bannerHeading {
+      h2 {
+        font-weight: 700;
+        margin-bottom: 2rem;
+      }
+    }
+    .bannerSubHeading {
+      h3 {
+        font-weight: 500;
+      }
+    }
+  }
+}

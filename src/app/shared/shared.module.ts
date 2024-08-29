@@ -6,6 +6,7 @@ import { AngularMaterialModule } from './angularMaterial/angular-material.module
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 
+
 @NgModule({
   declarations: [
     SidenavComponent
@@ -13,7 +14,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
   imports: [
     CommonModule,
     SharedRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    
   ],
   exports:[SidenavComponent]
 })
