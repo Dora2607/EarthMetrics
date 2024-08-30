@@ -7,21 +7,20 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { SharedModule } from './shared/shared.module';
-import { HomeComponent } from './home/home.component';
-import { HeroBannerComponent } from './home/components/hero-banner/hero-banner.component';
-import { PageSelectorComponent } from './home/components/page-selector/page-selector.component';
+import { HomeModule } from './home/home.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    HeroBannerComponent,
-    PageSelectorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    HomeModule,
+    BrowserAnimationsModule,
+    
   ],
   providers: [
     provideClientHydration(),

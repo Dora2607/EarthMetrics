@@ -1,15 +1,18 @@
 <div class="mainContainer">
-  <h4>Cosa vuoi vedere?</h4>
-
-  <div class="cardContainer" *ngIf="images">
-    <div class="card" *ngFor="let image of images">
-      <div class="imageBox">
-        <img [src]="image.imageSrc" [alt]="image.imageAlt" class="responsive" />
-      </div>
-      <div class="cardContent">
-        <h5 class="cardTitle">{{ image.imageTitle }}</h5>
-        <p class="cardDescription">{{ image.imageDescription }}</p>
-      </div>
-    </div>
-  </div>
+  <h4 class="sectionTitle">Cosa vuoi vedere?</h4>
+  <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let image of images">
+        <ng-template carouselSlide>
+          <div class="card">
+            <div class="imageBox">
+              <img [src]="image.imageSrc" [alt]="image.imageAlt" class="responsive" />
+            </div>
+            <div class="cardContent">
+              <h5 class="cardTitle">{{ image.imageTitle }}</h5>
+              <p class="cardDescription">{{ image.imageDescription }}</p>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+  </owl-carousel-o>
 </div>

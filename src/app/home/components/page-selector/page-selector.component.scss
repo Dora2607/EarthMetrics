@@ -1,46 +1,72 @@
 @import "../../../../styles.scss";
 
+.mainContainer {
+  padding: 0.5rem 3rem 2rem 3rem;
+  .sectionTitle{
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
 
-.mainContainer{
-  padding: 2rem 3rem;
-}
-
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
+  ::ng-deep .owl-theme .owl-nav{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      ::ng-deep .owl-next{
+        transform: translate(60%,0);
+      }
+      ::ng-deep .owl-prev{
+        left: 0px;
+        transform: translate(-60%,0);
+      }
+    }
+    ::ng-deep .owl-theme .owl-nav .owl-next,
+    ::ng-deep .owl-theme .owl-nav .owl-prev  {
+      background: $primary-color;
+      width: 2rem !important;
+      height: 2rem !important;
+      cursor: pointer !important;
+      border-radius: 50% !important;
+      &:hover{
+        background: #83c5be;
+      }
+    }  
+    ::ng-deep .owl-theme .owl-nav .owl-next i,
+    ::ng-deep .owl-theme .owl-nav .owl-prev i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }   
 }
 
 .card {
-  @include responsive-card(75%, 50%, 30%);
-  border-radius: 8px;
+  border-radius: 10px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
-
   &:hover {
     transform: scale(1.05);
   }
-
   &:hover .cardContent .cardTitle {
     text-shadow: 3px 3px 5px $primary-color;
   }
-
   &:hover .cardContent .cardDescription {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
     text-shadow: 3px 3px 5px $primary-color;
   }
 }
-
 .imageBox {
   height: 100%;
   border-radius: inherit;
   overflow: hidden;
-
   img {
     width: 100%;
     height: 100%;
@@ -49,7 +75,6 @@
     transition: 0.5s ease-in-out;
   }
 }
-
 .card::after {
   content: "";
   position: absolute;
@@ -59,16 +84,13 @@
   opacity: 0;
   transition: 0.4s ease-in-out;
 }
-
 .card:hover img {
   filter: grayscale(1) brightness(0.6);
 }
-
 .card:hover::after {
   opacity: 1;
-  inset: 20px;
+  inset: 1.5rem;
 }
-
 .cardContent {
   width: 80%;
   position: absolute;
@@ -77,23 +99,45 @@
   transform: translate(-50%, -50%);
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  
   .cardTitle {
     margin-block: 1rem;
   }
-
   .cardDescription {
     opacity: 0;
-    visibility: hidden; 
+    visibility: hidden;
   }
+}
 
+@media (min-width: $breakpoint-small) {
+
+  .card:hover::after {
+    opacity: 1;
+    inset: 3rem;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  .mainContainer{
+    .sectionTitle{
+      margin-bottom: 4rem;
+    }
+  }
+  .card:hover::after {
+    opacity: 1;
+    inset: 2rem;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .mainContainer{
+    .sectionTitle{
+      margin-bottom: 5rem;
+    }
+  }
+  .card:hover::after {
+    opacity: 1;
+    inset: 3rem;
+  }
 }
 
 
-
-@media (min-width:$breakpoint-large ) {
-  .cardContainer {
-   
-    justify-content: space-around;
-  }
-}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeImages } from '../../../models/homeImages.model';
 import { ImageDataService } from '../../../services/image-data.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 
 @Component({
@@ -9,6 +10,28 @@ import { ImageDataService } from '../../../services/image-data.service';
   styleUrl: './page-selector.component.scss'
 })
 export class PageSelectorComponent implements OnInit{
+  customOptions: OwlOptions = {
+    loop: false,
+    margin: 40,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    navText: [ '<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      960: {
+        items: 2
+      },
+      1280: {
+        items: 3
+      },
+    },
+    nav: true
+  }
+  
 
   images: HomeImages[]=[];
 
