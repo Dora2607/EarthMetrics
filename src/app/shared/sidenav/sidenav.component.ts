@@ -15,6 +15,5 @@ export class SidenavComponent {
 
   toggleTheme() {
     this.themeManager.toggleTheme();
-    console.log('Current theme:', this.theme());
   }
 }
