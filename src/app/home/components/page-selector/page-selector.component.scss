@@ -1,45 +1,59 @@
 @import "../../../../styles.scss";
 
-.mainContainer {
+.pageSelectorContainer {
   padding: 0.5rem 3rem 2rem 3rem;
-  .sectionTitle{
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2383c5be" fill-opacity="1" d="M0,288L0,64L240,64L240,160L480,160L480,128L720,128L720,224L960,224L960,192L1200,192L1200,128L1440,128L1440,0L1200,0L1200,0L960,0L960,0L720,0L720,0L480,0L480,0L240,0L240,0L0,0L0,0Z"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center, 50%, 50%;
+  transition: all 0.2s ease-in-out;
+
+  .sectionTitle {
     margin-top: 1rem;
     margin-bottom: 3rem;
+    text-align: center;
+    padding-top: 1rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   }
 
-  ::ng-deep .owl-theme .owl-nav{
-      position: absolute;
-      top: 50%;
-      transform: translateY(-60%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      ::ng-deep .owl-next{
-        transform: translate(60%,0);
-      }
-      ::ng-deep .owl-prev{
-        left: 0px;
-        transform: translate(-60%,0);
-      }
+  ::ng-deep .owl-theme .owl-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .owl-next {
+      transform: translate(60%, 0);
     }
-    ::ng-deep .owl-theme .owl-nav .owl-next,
-    ::ng-deep .owl-theme .owl-nav .owl-prev  {
-      background: $primary-color;
-      width: 2rem !important;
-      height: 2rem !important;
-      cursor: pointer !important;
-      border-radius: 50% !important;
-      &:hover{
-        background: #83c5be;
-      }
-    }  
-    ::ng-deep .owl-theme .owl-nav .owl-next i,
-    ::ng-deep .owl-theme .owl-nav .owl-prev i {
+
+    .owl-prev {
+      left: 0px;
+      transform: translate(-60%, 0);
+    }
+  }
+
+  ::ng-deep .owl-theme .owl-nav .owl-next,
+  ::ng-deep .owl-theme .owl-nav .owl-prev {
+    background: $primary-color;
+    width: 2rem !important;
+    height: 2rem !important;
+    cursor: pointer !important;
+    border-radius: 50% !important;
+
+    &:hover {
+      background: #f79824;
+    }
+
+    i {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    }   
+    }
+  }
 }
 
 .card {
@@ -48,25 +62,47 @@
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
+
   &:hover {
     transform: scale(1.05);
   }
+
   &:hover .cardContent .cardTitle {
-    text-shadow: 3px 3px 5px $primary-color;
+    text-shadow: 3px 3px 5px #f79824;
   }
+
   &:hover .cardContent .cardDescription {
     opacity: 1;
     visibility: visible;
-    transition:
-      opacity 0.3s ease-in-out,
-      visibility 0.3s ease-in-out;
-    text-shadow: 3px 3px 5px $primary-color;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    text-shadow: 3px 3px 5px #f79824;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+  }
+
+  &:hover img {
+    filter: grayscale(1) brightness(0.4);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    inset: 1rem;
   }
 }
+
 .imageBox {
   height: 100%;
   border-radius: inherit;
   overflow: hidden;
+
   img {
     width: 100%;
     height: 100%;
@@ -75,22 +111,7 @@
     transition: 0.5s ease-in-out;
   }
 }
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid white;
-  border-radius: inherit;
-  opacity: 0;
-  transition: 0.4s ease-in-out;
-}
-.card:hover img {
-  filter: grayscale(1) brightness(0.6);
-}
-.card:hover::after {
-  opacity: 1;
-  inset: 1.5rem;
-}
+
 .cardContent {
   width: 80%;
   position: absolute;
@@ -99,9 +120,11 @@
   transform: translate(-50%, -50%);
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+
   .cardTitle {
     margin-block: 1rem;
   }
+
   .cardDescription {
     opacity: 0;
     visibility: hidden;
@@ -109,7 +132,6 @@
 }
 
 @media (min-width: $breakpoint-small) {
-
   .card:hover::after {
     opacity: 1;
     inset: 3rem;
@@ -117,27 +139,23 @@
 }
 
 @media (min-width: $breakpoint-medium) {
-  .mainContainer{
-    .sectionTitle{
+  .pageSelectorContainer {
+    .sectionTitle {
       margin-bottom: 4rem;
     }
-  }
-  .card:hover::after {
-    opacity: 1;
-    inset: 2rem;
   }
 }
 
 @media (min-width: $breakpoint-large) {
-  .mainContainer{
-    .sectionTitle{
+  .pageSelectorContainer {
+    .sectionTitle {
       margin-bottom: 5rem;
     }
   }
+
   .card:hover::after {
     opacity: 1;
-    inset: 3rem;
+    inset: 2.5rem;
   }
 }
-
 
