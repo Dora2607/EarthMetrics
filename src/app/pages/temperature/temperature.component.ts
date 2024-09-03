@@ -1,16 +1,24 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
+import { TemperatureService } from '../../services/temperature.service';
 
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
-  styleUrl: './temperature.component.scss'
+  styleUrl: './temperature.component.scss',
 })
 export class TemperatureComponent implements OnInit {
-  @Output() contentEmitter = new EventEmitter<string>();
-  @Output() chartEmitter = new EventEmitter<string>();
+  titleTemperature = 'Temperature Globali';
+  contentTemperature!: string;
+
+  constructor(
+    private dataService: DataService,
+    private temperatureService: TemperatureService,
+  ) {}
 
   ngOnInit(): void {
-    this.contentEmitter.emit('Informazioni sulle temperature globali.');
-    this.chartEmitter.emit('Grafico delle temperature.');
+    this.dataService.changeTitle(this.titleTemperature);
+    this.contentTemperature = this.temperatureService.temperatureParagraph;
+    this.dataService.changeContent(this.contentTemperature);
   }
 }

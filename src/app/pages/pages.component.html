@@ -1,13 +1,13 @@
-<section class="contentPage">
+<router-outlet>
+  <section class="contentPage">
+    <h4 class="pageTitle">{{ currentTitle }}</h4>
     <div class="contentContainer">
-        <h2>Titolo Pagina</h2>
-        <article>
-            <div>
-              <p>{{currentContent}}</p>
-            </div>
-            <div>
-                <p>chart</p>
-            </div>
-        </article>
+      <article>
+        <div class="contents" [innerHTML]="currentContent"></div>
+        <div>
+          <p>chart</p>
+        </div>
+      </article>
     </div>
-</section>
+  </section>
+</router-outlet>

@@ -44,7 +44,7 @@
     border-radius: 50% !important;
 
     &:hover {
-      background: #f79824;
+      background: $secondary-color;
     }
 
     i {
@@ -68,14 +68,14 @@
   }
 
   &:hover .cardContent .cardTitle {
-    text-shadow: 3px 3px 5px #f79824;
+    text-shadow: 3px 3px 5px $secondary-color;
   }
 
   &:hover .cardContent .cardDescription {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    text-shadow: 3px 3px 5px #f79824;
+    text-shadow: 3px 3px 5px $secondary-color;
   }
 
   &::after {
