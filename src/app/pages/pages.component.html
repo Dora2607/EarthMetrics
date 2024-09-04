@@ -1,13 +1,13 @@
-<router-outlet>
+
   <section class="contentPage">
     <h4 class="pageTitle darkTitle">{{ currentTitle }}</h4>
     <div class="contentContainer">
       <article class="articleContainer">
         <div class="contents item" [innerHTML]="currentContent"></div>
         <div class="chartContainer item">
-          <p>chart</p>
+          <router-outlet></router-outlet>
         </div>
       </article>
     </div>
   </section>
-</router-outlet>
+
