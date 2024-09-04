@@ -37,10 +37,10 @@ body {
 
 // Colors
 $primary-color: #006d77;
+$primary-color-dark: #83c5be;
 $secondary-color: #f79824;
 
 // Typography Variables
-
 
 // Typography Variables
 $font-sizes: (
@@ -55,7 +55,7 @@ $font-sizes: (
   body: 16px,
   button: 14px,
   caption: 12px,
-  overline: 10px
+  overline: 10px,
 );
 
 // Typography
@@ -202,9 +202,24 @@ overline {
   }
 }
 
-
 // Background images for light and dark mode
 html.dark .pageSelectorContainer {
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%235C807D" fill-opacity="1" d="M0,256L0,160L360,160L360,224L720,224L720,128L1080,128L1080,64L1440,64L1440,0L1080,0L1080,0L720,0L720,0L360,0L360,0L0,0L0,0Z"></path></svg>');
   transition: all 0.2s ease-in-out;
+}
+
+html.dark {
+  .darkTitle {
+    color: $primary-color-dark !important;
+  }
+
+}
+
+html.dark{
+  .contents {
+    .darkDynamicTitle {
+      color: $primary-color-dark !important;
+      text-shadow: none !important;
+    }
+  }
 }

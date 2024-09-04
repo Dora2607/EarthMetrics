@@ -28,14 +28,21 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
 
-      this.dataService.currentContent
+    this.dataService.currentContent
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((content: string) => {
         this.currentContent = content;
         this.cdr.detectChanges();
       });
+
   }
 
+   
+   
+
+
+
+ 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

@@ -1,10 +1,10 @@
 <router-outlet>
   <section class="contentPage">
-    <h4 class="pageTitle">{{ currentTitle }}</h4>
+    <h4 class="pageTitle darkTitle">{{ currentTitle }}</h4>
     <div class="contentContainer">
-      <article>
-        <div class="contents" [innerHTML]="currentContent"></div>
-        <div>
+      <article class="articleContainer">
+        <div class="contents item" [innerHTML]="currentContent"></div>
+        <div class="chartContainer item">
           <p>chart</p>
         </div>
       </article>
