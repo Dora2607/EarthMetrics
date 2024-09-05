@@ -208,6 +208,18 @@ html.dark .pageSelectorContainer {
   transition: all 0.2s ease-in-out;
 }
 
+//Styling sideMenuItem for dark theme
+
+html.dark {
+  .sideMenuItem {
+    color: $primary-color-dark !important;
+    &:hover {
+      color: #fff !important;
+    }
+  }
+}
+
+//Styling dynamic paragraph for dark theme
 html.dark {
   .darkTitle {
     color: $primary-color-dark !important;
@@ -223,3 +235,4 @@ html.dark{
     }
   }
 }
+

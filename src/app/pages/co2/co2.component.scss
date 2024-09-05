@@ -1,0 +1,21 @@
+@import "../../../styles.scss";
+
+.co2Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .echartContainer{
+    width: 100%;
+    height: 500px;
+  }
+  .legendTitle{
+    margin: 1rem 0;
+    color: $secondary-color;
+  }
+  .legendParagraph{
+    margin: 1rem;
+  }
+}
+
+

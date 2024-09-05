@@ -12,6 +12,7 @@
   }
 
   .contentContainer {
+    padding-top: 1rem;
     .contents {
       margin-top: 1rem;
       padding: 1rem;
@@ -35,6 +36,7 @@
 @media (min-width: $breakpoint-small) {
   .contentPage {
     .contentContainer {
+      padding-top: 1.5rem;
       .contents {
         padding: 1.5rem;
       }
@@ -48,11 +50,12 @@
 @media (min-width: $breakpoint-medium) {
   .contentPage {
     .contentContainer {
+      padding-top: 2rem;
       .articleContainer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items:flex-start;
         .item {
           width: 50%;
         }
@@ -70,6 +73,7 @@
 @media (min-width: $breakpoint-large) {
   .contentPage {
     .contentContainer {
+      padding-top: 3rem;
       .articleContainer {
         .contents {
           padding: 2.5rem;
