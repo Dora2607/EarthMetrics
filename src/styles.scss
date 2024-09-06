@@ -224,10 +224,9 @@ html.dark {
   .darkTitle {
     color: $primary-color-dark !important;
   }
-
 }
 
-html.dark{
+html.dark {
   .contents {
     .darkDynamicTitle {
       color: $primary-color-dark !important;
@@ -236,3 +235,14 @@ html.dark{
   }
 }
 
+//Global style of chart Container
+.chartMainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .echartContainer {
+    width: 100%;
+    height: 500px;
+  }
+}

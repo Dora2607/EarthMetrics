@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class MethaneService {
-  methaneParagraph = `
+  private methaneParagraph = `
   <h5 class="dynamicTitle darkDynamicTitle">Cos'è</h5>
   <p class="innerParagraph">Le emissioni di metano (CH4) 
   provengono principalmente dall’agricoltura, 
@@ -31,4 +31,20 @@ export class MethaneService {
   gestire meglio i rifiuti organici sono azioni
    importanti per ridurre le emissioni di metano.</p>
   `;
+
+  private methaneLegend = ` <p>
+  <strong>Average</strong>: La concentrazione media di metano (CH₄) nell’atmosfera per il periodo specificato, espressa in parti per miliardo (ppb).
+</p>
+
+<p>
+  <strong>Trend</strong>: La concentrazione di metano calcolata come tendenza a lungo termine, eliminando le variazioni stagionali.
+</p>`;
+
+  getMethaneParagraph() {
+    return this.methaneParagraph;
+  }
+
+  getMethaneLegend(){
+    return this.methaneLegend;
+  }
 }

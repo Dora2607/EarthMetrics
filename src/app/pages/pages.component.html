@@ -1,13 +1,15 @@
-
-  <section class="contentPage">
-    <h4 class="pageTitle darkTitle">{{ currentTitle }}</h4>
-    <div class="contentContainer">
-      <article class="articleContainer">
-        <div class="contents item" [innerHTML]="currentContent"></div>
-        <div class="chartContainer item">
-          <router-outlet></router-outlet>
+<section class="contentPage">
+  <h4 class="pageTitle darkTitle">{{ currentTitle }}</h4>
+  <div class="contentContainer">
+    <article class="articleContainer">
+      <div class="contents item" [innerHTML]="currentContent"></div>
+      <div class="chartContainer item">
+        <router-outlet></router-outlet>
+        <div class="legendContainer">
+          <h6 class="legendTitle">Leggenda</h6>
+          <div class="legendParagraph" [innerHTML]="currentLegend"></div>
         </div>
-      </article>
-    </div>
-  </section>
-
+      </div>
+    </article>
+  </div>
+</section>

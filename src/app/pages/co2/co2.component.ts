@@ -14,6 +14,8 @@ import { isPlatformBrowser } from '@angular/common';
 export class Co2Component implements OnInit {
   titleCo2 = 'Emissioni di CO2';
   contentCo2!: string;
+  legendCo2!:string;
+  apiType = 'co2';
   co2Data: Co2Data[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chartOption: any;
@@ -27,19 +29,21 @@ export class Co2Component implements OnInit {
 
   ngOnInit(): void {
     this.dataService.changeTitle(this.titleCo2);
-    this.contentCo2 = this.Co2Service.co2Paragraph;
+    this.contentCo2 = this.Co2Service.getCo2Paragraph();
     this.dataService.changeContent(this.contentCo2);
-    this.clientApi.getCo2Data().subscribe((response: Co2ApiResponse) => {
+    this.clientApi.getData<Co2ApiResponse>(this.apiType).subscribe((response: Co2ApiResponse )=> {
       this.co2Data = response.co2;
       if (isPlatformBrowser(this.platformId)) {
-        this.createChart();
+        this.createCo2Chart();
       }
     });
+    this.legendCo2 = this.Co2Service.getCo2Legend();
+    this.dataService.changeLegend(this.legendCo2);
   }
 
-  createChart() {
+  createCo2Chart() {
     if (isPlatformBrowser(this.platformId)) {
-      const chartDom = document.getElementById('echart');
+      const chartDom = document.getElementById('co2Chart');
       const myChart = echarts.init(chartDom, null, {
         width: 'auto',
         height: 'auto'

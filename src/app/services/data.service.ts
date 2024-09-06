@@ -22,5 +22,13 @@ export class DataService {
     this.contentSource.next(content);
   }
 
+  //Legend Change
+  private legendSource = new BehaviorSubject<string>('Data');
+  currentLegend = this.legendSource.asObservable();
+
+  changeLegend(legend:string){
+    this.legendSource.next(legend);
+  }
+
 
 }

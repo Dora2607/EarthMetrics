@@ -11,6 +11,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   currentTitle!: string;
   currentContent!: string;
   currentChart!: string;
+  currentLegend!:string;
 
   private unsubscribe$ = new Subject<void>();
 
@@ -35,14 +36,12 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
 
+    this.dataService.currentLegend.pipe(takeUntil(this.unsubscribe$)).subscribe((legend:string)=>{
+      this.currentLegend = legend
+      this.cdr.detectChanges();
+    })
   }
 
-   
-   
-
-
-
- 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
