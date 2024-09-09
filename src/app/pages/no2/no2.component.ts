@@ -25,19 +25,20 @@ export class No2Component implements OnInit {
     private no2Service: No2Service,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
-
   ) {}
 
   ngOnInit(): void {
     this.dataService.changeTitle(this.titleNo2);
     this.contentNo2 = this.no2Service.getNo2Paragraph();
     this.dataService.changeContent(this.contentNo2);
-    this.clientApi.getData<No2ApiResponse>(this.apiType).subscribe((response: No2ApiResponse )=> {
-      this.no2Data = response.nitrous;
-      if (isPlatformBrowser(this.platformId)) {
-        this.createNo2Chart();
-      }
-    });
+    this.clientApi
+      .getData<No2ApiResponse>(this.apiType)
+      .subscribe((response: No2ApiResponse) => {
+        this.no2Data = response.nitrous;
+        if (isPlatformBrowser(this.platformId)) {
+          this.createNo2Chart();
+        }
+      });
     this.legendNo2 = this.no2Service.getNo2Legend();
     this.dataService.changeLegend(this.legendNo2);
   }
@@ -47,21 +48,46 @@ export class No2Component implements OnInit {
       const chartDom = document.getElementById('no2Chart');
       const myChart = echarts.init(chartDom, null, {
         width: 'auto',
-        height: 'auto'
+        height: 'auto',
       });
-      const dates = this.no2Data.map(
-        (data) => data.date,
-      );
+      const dates = this.no2Data.map((data) => data.date);
       const average = this.no2Data.map((data) => data.average);
       const trends = this.no2Data.map((data) => data.trend);
 
       this.chartOption = {
+        title: {
+          text: 'Nitrogen Dioxide',
+          left: 'auto',
+        },
         tooltip: {
           trigger: 'axis',
         },
         legend: {
           data: ['Average', 'Trend'],
-          padding: [0, 40],
+          top: 'top',
+          right: 'right',
+          textStyle: {
+            color: '#f79824',
+          },
+        },
+        grid: {
+          left: '10%',
+          right: '10%',
+          top: '15%',
+          bottom: '15%',
+          containLabel: true,
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none',
+            },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+          },
+          top: 'bottom',
+          left: 'center',
         },
         xAxis: {
           type: 'category',
@@ -87,6 +113,9 @@ export class No2Component implements OnInit {
               itemName: 'Year',
               tooltip: ['Average'],
             },
+            itemStyle: {
+              color: '#87cefa',
+            },
           },
           {
             name: 'Trend',
@@ -98,6 +127,9 @@ export class No2Component implements OnInit {
               y: 'Trend',
               itemName: 'Year',
               tooltip: ['Trend'],
+            },
+            itemStyle: {
+              color: '#fac858',
             },
           },
         ],

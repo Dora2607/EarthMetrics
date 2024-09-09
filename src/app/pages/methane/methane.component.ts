@@ -46,7 +46,7 @@ export class MethaneComponent implements OnInit {
   createChart() {
     if (isPlatformBrowser(this.platformId)) {
       const chartDom = document.getElementById('methaneChart');
-      const myChart = echarts.init(chartDom, null, {
+      const myChart = echarts.init(chartDom, 'null', {
         width: 'auto',
         height: 'auto',
       });
@@ -58,16 +58,43 @@ export class MethaneComponent implements OnInit {
         tooltip: {
           trigger: 'axis',
         },
+        title: {
+          text: 'Methane',
+          left: 'auto',
+        },
         legend: {
           data: ['Average', 'Trend'],
-          padding: [0, 40],
+          top: 'top',
+          right: 'right',
+          textStyle: {
+            color: '#f79824',
+          },
+        },
+        grid: {
+          left: '10%',
+          right: '10%',
+          top: '15%',
+          bottom: '15%',
+          containLabel: true,
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none',
+            },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+          },
+          top: 'bottom',
+          left: 'center',
         },
         xAxis: {
           type: 'category',
           data: dates,
         },
         yAxis: {
-          name: 'Methane Levels (ppb)',
+          name: 'Methane (ppb)',
           min: 1600,
           max: 2000,
           axisLabel: {
@@ -86,6 +113,9 @@ export class MethaneComponent implements OnInit {
               itemName: 'Year',
               tooltip: ['Average'],
             },
+            itemStyle: {
+              color: '#e5323e',
+            },
           },
           {
             name: 'Trend',
@@ -97,6 +127,9 @@ export class MethaneComponent implements OnInit {
               y: 'Trend',
               itemName: 'Year',
               tooltip: ['Trend'],
+            },
+            itemStyle: {
+              color: '#87cefa',
             },
           },
         ],

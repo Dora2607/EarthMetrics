@@ -10,4 +10,3 @@ export interface MethaneData {
     methane: MethaneData[];
   }
 
-  

@@ -55,12 +55,40 @@ export class Co2Component implements OnInit {
       const trends = this.co2Data.map((data) => data.trend);
 
       this.chartOption = {
+        title: {
+          text: 'Carbon Dioxide',
+          left: 'auto',
+        },
         tooltip: {
           trigger: 'axis',
         },
         legend: {
           data: ['Cycle', 'Trend'],
-          padding: [0, 40],
+          top: 'top', 
+          right: 'right', 
+          textStyle: {
+             color: '#f79824'
+          }
+        },
+        grid: {
+          left: '10%', 
+          right: '10%', 
+          top: '15%', 
+          bottom: '15%', 
+          containLabel: true
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+          },
+          top: 'bottom',
+          left: 'center'
+          
         },
         xAxis: {
           type: 'category',
@@ -68,8 +96,8 @@ export class Co2Component implements OnInit {
         },
         yAxis: {
           name: 'CO2 Levels (ppm)',
-          min: 350,
-          max: 450,
+          min: 390,
+          max: 430,
           axisLabel: {
             formatter: '{value}',
           },

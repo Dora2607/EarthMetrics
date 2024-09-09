@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ArcticService {
-  arcticParagraph = `
+  private arcticParagraph = `
   <h5 class="dynamicTitle darkDynamicTitle">Cos'è</h5>
   <p class="innerParagraph">La riduzione del ghiaccio polare si riferisce 
   alla diminuzione della copertura di ghiaccio nelle
@@ -31,4 +31,30 @@ export class ArcticService {
   la ricerca scientifica sono azioni fondamentali
    per mitigare la riduzione del ghiaccio polare.</p>
   `;
+
+  private arcticLegend = `    
+  <p>
+    <strong>Value</strong>: L’estensione del ghiaccio marino di uno specifico mese, 
+    in milioni di chilometri quadrati.
+  </p>
+
+  <p>
+    <strong>Anom</strong>: L’anomalia rispetto al periodo di riferimento (1991-2020), 
+    in milioni di chilometri quadrati.
+  </p>
+  
+  <p>
+    <strong>Monthly Mean</strong>: La media mensile dell’estensione del ghiaccio marino, 
+    in milioni di chilometri quadrati.
+  </p>
+    
+    `;
+
+  getArcticParagraph() {
+    return this.arcticParagraph;
+  }
+
+  getArcticLegend(){
+    return this.arcticLegend;
+  } 
 }
