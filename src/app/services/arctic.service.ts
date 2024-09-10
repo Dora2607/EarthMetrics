@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ArcticData, ArcticDataArr } from '../models/arcticData.model';
 
 @Injectable({
   providedIn: 'root',
@@ -57,4 +58,16 @@ export class ArcticService {
   getArcticLegend(){
     return this.arcticLegend;
   } 
+
+  extractData(response: ArcticData): ArcticDataArr[] {
+    return Object.entries(response).map(([key, entry]) => {
+      const formattedKey = `${key.slice(0, 4)}-${key.slice(4)}`;
+      return {
+        key: formattedKey,
+        value: entry.value,
+        anom: entry.anom,
+        monthlyMean: entry.monthlyMean,
+      };
+    });
+  }
 }
