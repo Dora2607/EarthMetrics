@@ -50,7 +50,10 @@ export class No2Component implements OnInit {
         width: 'auto',
         height: 'auto',
       });
-      const dates = this.no2Data.map((data) => data.date);
+      const dates = this.no2Data.map((data) => {
+        const [year, month] = data.date.split('.');
+        return `${('0' + month).slice(-2)}-${year}`;
+      });
       const average = this.no2Data.map((data) => data.average);
       const trends = this.no2Data.map((data) => data.trend);
 
@@ -58,6 +61,9 @@ export class No2Component implements OnInit {
         title: {
           text: 'Nitrogen Dioxide',
           left: 'auto',
+          textStyle: {
+            color: '#f79824'
+         }
         },
         tooltip: {
           trigger: 'axis',

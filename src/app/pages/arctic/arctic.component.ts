@@ -57,22 +57,36 @@ export class ArcticComponent implements OnInit {
       const dates = this.arcticData.map((data) => data.key);
       const value = this.arcticData.map((data) => data.value);
       const anom = this.arcticData.map((data) => data.anom);
-      const monthlyMean = this.arcticData.map((data)=> data.monthlyMean)
+      const monthlyMean = this.arcticData.map((data) => data.monthlyMean);
+      const minMonthlyMean = Math.min(...monthlyMean);
+      const maxMonthlyMean = Math.max(...monthlyMean);
 
       this.chartOption = {
         title: {
           text: 'Global Sea Ice Extent (1979-2024)',
           left: 'auto',
+          textStyle: {
+            color: '#f79824'
+         }
         },
         tooltip: {
           trigger: 'axis',
-        },
-        legend: {
-          data: ['Estensione', 'Media Mensile'],
-          top: 'top',
-          right: 'right',
-          textStyle: {
-            color: '#f79824',
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter: function (params: any) {
+            let tooltipText = '<div style="padding: 10px; border-radius: 5px; background-color: #f9f9f9; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">';
+            tooltipText += '<ul style="list-style: none; padding: 0; margin: 0; color: black;">';
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            params.forEach((param: any) => {
+              const value = param.value;
+              const anomaly = anom[param.dataIndex];
+              tooltipText += `<li style="margin: 0; font-size: 14px;"><span style="display: inline-block; width: 10px; height: 10px; background-color: #a2d2ff; border-radius: 50%; margin-right: 5px;"></span><strong>Estensione:</strong> ${value} mln km²</li>`;
+              if (value < minMonthlyMean || value > maxMonthlyMean) {
+                const anomalyColor = value < minMonthlyMean ? '#dd2c2f' : '#669bbc';
+                tooltipText += `<li style="margin: 0; font-size: 14px;"><span style="display: inline-block; width: 10px; height: 10px; background-color: ${anomalyColor}; border-radius: 50%; margin-right: 5px;"></span><strong>Anomalia:</strong> ${anomaly} mln km²</li>`;
+              }
+            });
+            tooltipText += '</ul></div>';
+            return tooltipText;
           },
         },
         grid: {
@@ -88,8 +102,6 @@ export class ArcticComponent implements OnInit {
             dataZoom: {
               yAxisIndex: 'none',
             },
-            magicType: { type: ['line', 'bar'] },
-            restore: {},
           },
           top: 'bottom',
           left: 'center',
@@ -98,27 +110,50 @@ export class ArcticComponent implements OnInit {
           {
             type: 'category',
             data: dates,
-             axisPointer: {
-               type: 'shadow'
-             }
-          }
+            axisPointer: {
+              type: 'shadow',
+            },
+          },
         ],
         yAxis: [
           {
-            name: 'Estensione (million sq km)',
-            min:15,
+            name: 'Sea ice extent (mln km²)',
+            min: 15,
             max: 30,
             interval: 5,
             axisLabel: {
-              formatter: '{value}'
-            }
+              formatter: '{value}',
+            },
           },
         ],
+        visualMap: {
+          top: 50,
+          right: 10,
+          pieces: [
+            {
+              gt: 0,
+              lte: minMonthlyMean,
+              color: '#dd2c2f',
+            },
+            {
+              gt: minMonthlyMean,
+              lte: maxMonthlyMean,
+              color: '#a2d2ff',
+            },
+            {
+              gt: maxMonthlyMean,
+              color: '#669bbc',
+            },
+          ],
+        },
         series: [
           {
             name: 'Estensione',
             type: 'line',
-            data: value,
+            data: value.map((v, i) => ({
+              value: v,
+              anomaly: anom[i], 
+            })),
             showSymbol: false,
             encode: {
               x: 'Year',
@@ -126,31 +161,22 @@ export class ArcticComponent implements OnInit {
               itemName: 'Year',
               tooltip: ['Value'],
             },
-          },
-          // {
-          //   name: 'Anomalia',
-          //   type: 'bar',
-          //   tooltip: {
-          //     valueFormatter: function (value: number) {
-          //       return (value as number) + ' million sq km';
-          //     }
-          //   },
-          //   data: anom
-          // },
-          {
-            name: 'Media Mensile',
-            type: 'line',
-             
-            data: monthlyMean,
-            showSymbol: false,
-            encode: {
-              x: 'Year',
-              y: 'monthlyMean',
-              itemName: 'Year',
-              tooltip: ['monthlyMean'],
+            markLine: {
+              silent: true,
+              lineStyle: {
+                color: '#333',
+              },
+              data: [
+                {
+                  yAxis: minMonthlyMean,
+                },
+                {
+                  yAxis: maxMonthlyMean,
+                },
+              ],
             },
-          }
-        ]
+          },
+        ],
       };
       myChart.setOption(this.chartOption);
       window.addEventListener('resize', () => {

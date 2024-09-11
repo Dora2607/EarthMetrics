@@ -35,18 +35,15 @@ export class ArcticService {
 
   private arcticLegend = `    
   <p>
-    <strong>Value</strong>: L’estensione del ghiaccio marino di uno specifico mese, 
-    in milioni di chilometri quadrati.
-  </p>
-
-  <p>
-    <strong>Anom</strong>: L’anomalia rispetto al periodo di riferimento (1991-2020), 
+    <strong>Estensione</strong>: L’estensione del ghiaccio marino di uno specifico mese, espressa
     in milioni di chilometri quadrati.
   </p>
   
+  <p>In <strong>Rosso:</strong>
+   Estensione inferiore alla media mensile minima.
+  </p>
   <p>
-    <strong>Monthly Mean</strong>: La media mensile dell’estensione del ghiaccio marino, 
-    in milioni di chilometri quadrati.
+    In <strong>Blu</strong>: Estensione superiore alla media mensile massima.
   </p>
     
     `;
@@ -61,7 +58,7 @@ export class ArcticService {
 
   extractData(response: ArcticData): ArcticDataArr[] {
     return Object.entries(response).map(([key, entry]) => {
-      const formattedKey = `${key.slice(0, 4)}-${key.slice(4)}`;
+      const formattedKey = `${key.slice(4)}-${key.slice(0, 4)}`;
       return {
         key: formattedKey,
         value: entry.value,

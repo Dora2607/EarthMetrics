@@ -50,7 +50,10 @@ export class MethaneComponent implements OnInit {
         width: 'auto',
         height: 'auto',
       });
-      const dates = this.methaneData.map((data) => data.date);
+      const dates = this.methaneData.map((data) => {
+        const [year, month] = data.date.split('.');
+        return `${('0' + month).slice(-2)}-${year}`;
+      });
       const average = this.methaneData.map((data) => data.average);
       const trends = this.methaneData.map((data) => data.trend);
 
@@ -61,6 +64,9 @@ export class MethaneComponent implements OnInit {
         title: {
           text: 'Methane',
           left: 'auto',
+          textStyle: {
+            color: '#f79824'
+         }
         },
         legend: {
           data: ['Average', 'Trend'],
@@ -94,7 +100,7 @@ export class MethaneComponent implements OnInit {
           data: dates,
         },
         yAxis: {
-          name: 'Methane (ppb)',
+          name: 'CH4 Levels (ppb)',
           min: 1600,
           max: 2000,
           axisLabel: {

@@ -58,6 +58,9 @@ export class Co2Component implements OnInit {
         title: {
           text: 'Carbon Dioxide',
           left: 'auto',
+          textStyle: {
+            color: '#f79824'
+         }
         },
         tooltip: {
           trigger: 'axis',
@@ -101,6 +104,7 @@ export class Co2Component implements OnInit {
           axisLabel: {
             formatter: '{value}',
           },
+          
         },
         series: [
           {
