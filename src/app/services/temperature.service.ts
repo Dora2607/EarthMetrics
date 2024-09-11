@@ -23,4 +23,25 @@ export class TemperatureService {
   adottare energie rinnovabili, migliorare l'efficienza energetica e promuovere pratiche sostenibili
    sono azioni fondamentali per mitigare l'aumento delle temperature globali.</p>
   `;
+
+
+  private temperatureLegend = ` 
+  <p>
+  <strong>Average</strong>: La concentrazione media di protossido di azoto nell’atmosfera 
+  per il periodo specificato, espressa in parti per miliardo (ppb).
+  </p>
+
+  <p>
+  <strong>Trend</strong>: La concentrazione di protossido di azoto calcolata come tendenza
+  a lungo termine, eliminando le variazioni stagionali.
+  </p>`;
+
+
+  getTemperatureParagraph(){
+    return this.temperatureParagraph;
+  }
+
+  getTemperatureLegend(){
+    return this.temperatureLegend;
+  }
 }

@@ -1,6 +1,5 @@
 export interface ArcticApiResponse {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error: any;
+    error: null;
     arcticData: ArcticDataObj;
   }
 
