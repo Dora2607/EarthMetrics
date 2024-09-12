@@ -14,7 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class Co2Component implements OnInit {
   titleCo2 = 'Emissioni di CO2';
   contentCo2!: string;
-  legendCo2!:string;
+  legendCo2!: string;
   apiType = 'co2';
   co2Data: Co2Data[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,12 +31,14 @@ export class Co2Component implements OnInit {
     this.dataService.changeTitle(this.titleCo2);
     this.contentCo2 = this.Co2Service.getCo2Paragraph();
     this.dataService.changeContent(this.contentCo2);
-    this.clientApi.getData<Co2ApiResponse>(this.apiType).subscribe((response: Co2ApiResponse )=> {
-      this.co2Data = response.co2;
-      if (isPlatformBrowser(this.platformId)) {
-        this.createCo2Chart();
-      }
-    });
+    this.clientApi
+      .getData<Co2ApiResponse>(this.apiType)
+      .subscribe((response: Co2ApiResponse) => {
+        this.co2Data = response.co2;
+        if (isPlatformBrowser(this.platformId)) {
+          this.createCo2Chart();
+        }
+      });
     this.legendCo2 = this.Co2Service.getCo2Legend();
     this.dataService.changeLegend(this.legendCo2);
   }
@@ -46,7 +48,7 @@ export class Co2Component implements OnInit {
       const chartDom = document.getElementById('co2Chart');
       const myChart = echarts.init(chartDom, null, {
         width: 'auto',
-        height: 'auto'
+        height: 'auto',
       });
       const dates = this.co2Data.map(
         (data) => `${data.day}-${data.month}-${data.year}`,
@@ -59,39 +61,38 @@ export class Co2Component implements OnInit {
           text: 'Carbon Dioxide',
           left: 'auto',
           textStyle: {
-            color: '#f79824'
-         }
+            color: '#f79824',
+          },
         },
         tooltip: {
           trigger: 'axis',
         },
         legend: {
           data: ['Cycle', 'Trend'],
-          top: 'top', 
-          right: 'right', 
+          top: 'top',
+          right: 'right',
           textStyle: {
-             color: '#f79824'
-          }
+            color: '#f79824',
+          },
         },
         grid: {
-          left: '10%', 
-          right: '10%', 
-          top: '15%', 
-          bottom: '15%', 
-          containLabel: true
+          left: '10%',
+          right: '10%',
+          top: '15%',
+          bottom: '15%',
+          containLabel: true,
         },
         toolbox: {
           show: true,
           feature: {
             dataZoom: {
-              yAxisIndex: 'none'
+              yAxisIndex: 'none',
             },
             magicType: { type: ['line', 'bar'] },
             restore: {},
           },
           top: 'bottom',
-          left: 'center'
-          
+          left: 'center',
         },
         xAxis: {
           type: 'category',
@@ -104,7 +105,6 @@ export class Co2Component implements OnInit {
           axisLabel: {
             formatter: '{value}',
           },
-          
         },
         series: [
           {

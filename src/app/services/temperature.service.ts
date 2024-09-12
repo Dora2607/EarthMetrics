@@ -26,14 +26,18 @@ export class TemperatureService {
 
 
   private temperatureLegend = ` 
-  <p>
-  <strong>Average</strong>: La concentrazione media di protossido di azoto nell’atmosfera 
-  per il periodo specificato, espressa in parti per miliardo (ppb).
+
+  <p>Questo grafico permette di visualizzare le variazioni delle anomalie della temperatura nel tempo.
+    Le anomalie della temperatura rappresentano la differenza tra la temperatura media di un mese 
+    specifico e una temperatura di riferimento (solitamente una media a lungo termine).
   </p>
 
   <p>
-  <strong>Trend</strong>: La concentrazione di protossido di azoto calcolata come tendenza
-  a lungo termine, eliminando le variazioni stagionali.
+  <strong>Station</strong>: Rappresenta l’anomalia della temperatura misurata dalle stazioni meteorologiche, in gradi Celsius.
+  </p>
+
+  <p>
+  <strong>Land</strong>: Rappresenta l’anomalia della temperatura misurata sulla terraferma, in gradi Celsius.
   </p>`;
 
 
@@ -44,4 +48,18 @@ export class TemperatureService {
   getTemperatureLegend(){
     return this.temperatureLegend;
   }
+
+  convertTime(time: string) {
+    const timeNumber = parseFloat(time);
+    const year = Math.floor(timeNumber);
+    const decimalPart = timeNumber - year;
+    let month = Math.round(decimalPart * 12);
+    if(month=== 0){
+      month = 1;
+    }
+    const formattedMonth = ('0' + month).slice(-2);
+    return `${formattedMonth}-${year}`;
+  }
+
+
 }

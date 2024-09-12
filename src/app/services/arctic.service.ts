@@ -17,20 +17,20 @@ export class ArcticService {
     riduzione contribuisce all’aumento delle 
     temperature globali e all’innalzamento del 
     livello del mare, con conseguenze devastanti
-     per gli ecosistemi polari e le comunità costiere.</p>
+    per gli ecosistemi polari e le comunità costiere.</p>
   
-  <h5 class="dynamicTitle darkDynamicTitle">Situazione attuale</h5>
-  <p class="innerParagraph">Il ghiaccio polare sta diminuendo rapidamente
-   a causa del riscaldamento globale, con conseguenze 
-   significative per gli ecosistemi polari e il clima 
-   globale. Questo fenomeno accelera ulteriormente il 
-   riscaldamento globale.</p>
-  
-  <h5 class="dynamicTitle darkDynamicTitle">Cosa possiamo fare</h5>
-  <p class="innerParagraph">Ridurre le emissioni di gas serra, 
-  proteggere gli ecosistemi polari e promuovere 
-  la ricerca scientifica sono azioni fondamentali
-   per mitigare la riduzione del ghiaccio polare.</p>
+    <h5 class="dynamicTitle darkDynamicTitle">Situazione attuale</h5>
+    <p class="innerParagraph">Il ghiaccio polare sta diminuendo rapidamente
+    a causa del riscaldamento globale, con conseguenze 
+    significative per gli ecosistemi polari e il clima 
+    globale. Questo fenomeno accelera ulteriormente il 
+    riscaldamento globale.</p>
+    
+    <h5 class="dynamicTitle darkDynamicTitle">Cosa possiamo fare</h5>
+    <p class="innerParagraph">Ridurre le emissioni di gas serra, 
+    proteggere gli ecosistemi polari e promuovere 
+    la ricerca scientifica sono azioni fondamentali
+    per mitigare la riduzione del ghiaccio polare.</p>
   `;
 
   private arcticLegend = `    
@@ -52,9 +52,9 @@ export class ArcticService {
     return this.arcticParagraph;
   }
 
-  getArcticLegend(){
+  getArcticLegend() {
     return this.arcticLegend;
-  } 
+  }
 
   extractData(response: ArcticData): ArcticDataArr[] {
     return Object.entries(response).map(([key, entry]) => {

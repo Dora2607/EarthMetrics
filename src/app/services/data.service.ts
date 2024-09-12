@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-
   //Title Change
   private titleSource = new BehaviorSubject<string>('Data');
   currentTitle = this.titleSource.asObservable();
 
-  changeTitle(title:string){
+  changeTitle(title: string) {
     this.titleSource.next(title);
   }
 
@@ -18,7 +17,7 @@ export class DataService {
   private contentSource = new BehaviorSubject<string>('Data');
   currentContent = this.contentSource.asObservable();
 
-  changeContent(content:string){
+  changeContent(content: string) {
     this.contentSource.next(content);
   }
 
@@ -26,9 +25,7 @@ export class DataService {
   private legendSource = new BehaviorSubject<string>('Data');
   currentLegend = this.legendSource.asObservable();
 
-  changeLegend(legend:string){
+  changeLegend(legend: string) {
     this.legendSource.next(legend);
   }
-
-
 }

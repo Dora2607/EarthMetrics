@@ -65,8 +65,8 @@ export class MethaneComponent implements OnInit {
           text: 'Methane',
           left: 'auto',
           textStyle: {
-            color: '#f79824'
-         }
+            color: '#f79824',
+          },
         },
         legend: {
           data: ['Average', 'Trend'],

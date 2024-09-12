@@ -66,22 +66,25 @@ export class ArcticComponent implements OnInit {
           text: 'Global Sea Ice Extent (1979-2024)',
           left: 'auto',
           textStyle: {
-            color: '#f79824'
-         }
+            color: '#f79824',
+          },
         },
         tooltip: {
           trigger: 'axis',
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           formatter: function (params: any) {
-            let tooltipText = '<div style="padding: 10px; border-radius: 5px; background-color: #f9f9f9; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">';
-            tooltipText += '<ul style="list-style: none; padding: 0; margin: 0; color: black;">';
+            let tooltipText =
+              '<div style="padding: 10px; border-radius: 5px; background-color: #f9f9f9; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">';
+            tooltipText +=
+              '<ul style="list-style: none; padding: 0; margin: 0; color: black;">';
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             params.forEach((param: any) => {
               const value = param.value;
               const anomaly = anom[param.dataIndex];
               tooltipText += `<li style="margin: 0; font-size: 14px;"><span style="display: inline-block; width: 10px; height: 10px; background-color: #a2d2ff; border-radius: 50%; margin-right: 5px;"></span><strong>Estensione:</strong> ${value} mln km²</li>`;
               if (value < minMonthlyMean || value > maxMonthlyMean) {
-                const anomalyColor = value < minMonthlyMean ? '#dd2c2f' : '#669bbc';
+                const anomalyColor =
+                  value < minMonthlyMean ? '#dd2c2f' : '#669bbc';
                 tooltipText += `<li style="margin: 0; font-size: 14px;"><span style="display: inline-block; width: 10px; height: 10px; background-color: ${anomalyColor}; border-radius: 50%; margin-right: 5px;"></span><strong>Anomalia:</strong> ${anomaly} mln km²</li>`;
               }
             });
@@ -152,7 +155,7 @@ export class ArcticComponent implements OnInit {
             type: 'line',
             data: value.map((v, i) => ({
               value: v,
-              anomaly: anom[i], 
+              anomaly: anom[i],
             })),
             showSymbol: false,
             encode: {

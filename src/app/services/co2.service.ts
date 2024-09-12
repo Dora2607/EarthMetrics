@@ -6,24 +6,33 @@ import { Injectable } from '@angular/core';
 export class Co2Service {
   private co2Paragraph = `
   <h5 class="dynamicTitle darkDynamicTitle">Cos'è</h5>
-  <p class="innerParagraph">Le emissioni di anidride carbonica (CO2) sono il rilascio di questo gas nell’atmosfera, 
-  principalmente derivante dalla combustione di combustibili fossili e dalla deforestazione.</p>
+  <p class="innerParagraph">L’anidride carbonica (CO2) è un gas incolore e inodore presente nell’atmosfera terrestre.
+   È composto da un atomo di carbonio e due atomi di ossigeno. La CO2 è un componente naturale del ciclo del carbonio, 
+   essenziale per la fotosintesi delle piante, che utilizzano la CO2 per produrre ossigeno. 
+  Tuttavia, la CO2 è anche un gas serra, il che significa che contribuisce al riscaldamento globale intrappolando il calore nell’atmosfera.
+  Le emissioni di CO2 si riferiscono alla quantità di anidride carbonica rilasciata nell’atmosfera a causa delle attività umane.
+  </p>
   
   <h5 class="dynamicTitle darkDynamicTitle">Perché è importante</h5>
   <p class="innerParagraph">La CO2 è uno dei principali gas serra responsabili del riscaldamento globale. 
   Monitorare le emissioni di CO2 è essenziale per valutare l’impatto delle attività umane sul clima e per sviluppare strategie di mitigazione.</p>
   
   <h5 class="dynamicTitle darkDynamicTitle">Situazione attuale</h5>
-  <p class="innerParagraph">Le emissioni di CO2 continuano a crescere, contribuendo all’aumento delle temperature globali e ai cambiamenti climatici. 
-  Questo ha effetti negativi sugli ecosistemi, sulla salute umana e sull’economia.</p>
+  <p class="innerParagraph">Le emissioni di CO2 continuano a crescere, contribuendo all’aumento delle temperature globali e ai cambiamenti climatici.
+   Storicamente, prima della rivoluzione industriale, i livelli di CO2 erano intorno a 280 ppm. 
+   Nel 2014, i livelli di CO2 erano intorno a 398 ppm. Nel 2024, i livelli hanno raggiunto circa 420 ppm. 
+   Questo rappresenta un aumento di circa 22 ppm nell’ultimo decennio, con conseguenti effetti negativi sugli ecosistemi, 
+   sulla salute umana e sull’economia.</p>
   
   <h5 class="dynamicTitle darkDynamicTitle">Cosa possiamo fare</h5>
   <p class="innerParagraph">Ridurre l’uso di combustibili fossili, aumentare l’uso di energie rinnovabili, 
   promuovere la riforestazione e migliorare l’efficienza energetica sono azioni chiave per ridurre le emissioni di CO2.</p>
   `;
 
-  private co2Legend = `    
-  <p>
+  private co2Legend = ` 
+  <p>Questo grafico mostra i livelli di anidride carbonica (CO2) nell’atmosfera a partire dal 2014 in poi. 
+  I dati sono rappresentati in due serie: il ciclo e la tendenza:</p>   
+    <p>
       <strong>Cycle</strong>: Il valore del ciclo di CO2, che rappresenta la concentrazione di
       CO2 misurata in parti per milione (ppm) in un determinato giorno. Questo
       valore può variare a causa di fattori stagionali e di breve termine.
@@ -36,13 +45,11 @@ export class Co2Service {
       dell’andamento a lungo termine delle concentrazioni di CO2.
     </p>`;
 
-  
-  getCo2Paragraph(){
+  getCo2Paragraph() {
     return this.co2Paragraph;
   }
 
-  getCo2Legend(){
+  getCo2Legend() {
     return this.co2Legend;
   }
-  
 }

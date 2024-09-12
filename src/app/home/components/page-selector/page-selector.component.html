@@ -4,17 +4,19 @@
     <ng-container *ngFor="let image of images">
       <ng-template carouselSlide>
         <div class="card">
-          <div class="imageBox">
-            <img
-              [src]="image.imageSrc"
-              [alt]="image.imageAlt"
-              class="responsive"
-            />
-          </div>
-          <div class="cardContent">
-            <h5 class="cardTitle">{{ image.imageTitle }}</h5>
-            <p class="cardDescription">{{ image.imageDescription }}</p>
-          </div>
+          <a [routerLink]="image.routerLink">
+            <div class="imageBox">
+              <img
+                [src]="image.imageSrc"
+                [alt]="image.imageAlt"
+                class="responsive"
+              />
+            </div>
+            <div class="cardContent">
+              <h5 class="cardTitle">{{ image.imageTitle }}</h5>
+              <p class="cardDescription">{{ image.imageDescription }}</p>
+            </div>
+          </a>
         </div>
       </ng-template>
     </ng-container>

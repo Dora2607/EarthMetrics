@@ -62,8 +62,8 @@ export class No2Component implements OnInit {
           text: 'Nitrogen Dioxide',
           left: 'auto',
           textStyle: {
-            color: '#f79824'
-         }
+            color: '#f79824',
+          },
         },
         tooltip: {
           trigger: 'axis',

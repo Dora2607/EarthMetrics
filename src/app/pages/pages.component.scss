@@ -30,14 +30,14 @@
     .chartContainer {
       padding: 1rem;
       .legendContainer {
+        padding: 1.5rem;
         .legendTitle {
-          margin: 1rem 0;
+          margin: 1.3rem 0;
           color: $secondary-color;
           text-align: center;
         }
         .legendParagraph {
           margin: 1rem;
-          
         }
       }
     }
@@ -64,11 +64,10 @@
       padding-top: 2rem;
       .articleContainer {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         .item {
-          width: 50%;
+          width: 70%;
         }
         .contents {
           padding: 2rem;

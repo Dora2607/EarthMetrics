@@ -44,7 +44,7 @@ export class MethaneService {
     return this.methaneParagraph;
   }
 
-  getMethaneLegend(){
+  getMethaneLegend() {
     return this.methaneLegend;
   }
 }
