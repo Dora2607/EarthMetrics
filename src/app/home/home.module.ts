@@ -4,12 +4,11 @@ import { HomeComponent } from './home.component';
 import { HeroBannerComponent } from './components/hero-banner/hero-banner.component';
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HomeComponent, HeroBannerComponent, PageSelectorComponent],
-  imports: [CommonModule, CarouselModule, MatDividerModule, RouterModule],
+  imports: [CommonModule, CarouselModule, RouterModule],
   exports: [HomeComponent, HeroBannerComponent, PageSelectorComponent],
 })
 export class HomeModule {}

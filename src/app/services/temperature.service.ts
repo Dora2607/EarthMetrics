@@ -54,7 +54,7 @@ export class TemperatureService {
     const year = Math.floor(timeNumber);
     const decimalPart = timeNumber - year;
     let month = Math.round(decimalPart * 12);
-    if(month=== 0){
+    if(month===0){
       month = 1;
     }
     const formattedMonth = ('0' + month).slice(-2);
