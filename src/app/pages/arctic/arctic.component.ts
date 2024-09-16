@@ -182,9 +182,13 @@ export class ArcticComponent implements OnInit {
         ],
       };
       myChart.setOption(this.chartOption);
-      window.addEventListener('resize', () => {
-        myChart.resize();
-      });
+      window.addEventListener(
+        'resize',
+        () => {
+          myChart.resize();
+        },
+        { passive: true },
+      );
     }
   }
 }

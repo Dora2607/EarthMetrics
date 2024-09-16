@@ -25,9 +25,9 @@ const routes: Routes = [
           import('./methane/methane.module').then((m) => m.MethaneModule),
       },
       {
-        path: 'no2',
+        path: 'n2o',
         loadChildren: () =>
-          import('./no2/no2.module').then((m) => m.No2Module),
+          import('./n2o/n2o.module').then((m) => m.N2oModule),
       },
       {
         path: 'arctic',

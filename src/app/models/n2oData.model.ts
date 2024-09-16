@@ -1,4 +1,4 @@
-export interface No2Data {
+export interface N2oData {
     date: string;
     average: string;
     trend: string;
@@ -6,6 +6,6 @@ export interface No2Data {
     trendUnc: string;
   }
 
-  export interface No2ApiResponse {
-    nitrous: No2Data[];
+  export interface N2oApiResponse {
+    nitrous: N2oData[];
   }

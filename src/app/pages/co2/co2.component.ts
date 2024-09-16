@@ -99,7 +99,7 @@ export class Co2Component implements OnInit {
           data: dates,
         },
         yAxis: {
-          name: 'CO2 Levels (ppm)',
+          name: 'CO₂ Levels (ppm)',
           min: 390,
           max: 430,
           axisLabel: {
@@ -134,9 +134,13 @@ export class Co2Component implements OnInit {
         ],
       };
       myChart.setOption(this.chartOption);
-      window.addEventListener('resize', () => {
-        myChart.resize();
-      });
+      window.addEventListener(
+        'resize',
+        () => {
+          myChart.resize();
+        },
+        { passive: true },
+      );
     }
   }
 }

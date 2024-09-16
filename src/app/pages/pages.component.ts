@@ -1,11 +1,13 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Subject, takeUntil } from 'rxjs';
+import { slideInOut } from '../shared/animations/slideInOut';
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
+  animations: [slideInOut],
 })
 export class PagesComponent implements OnInit, OnDestroy {
   currentTitle!: string;

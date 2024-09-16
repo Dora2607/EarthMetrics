@@ -16,26 +16,26 @@ export class ImageDataService {
     },
     {
       imageSrc: '../../assets/img/Co2.jpg',
-      imageAlt: 'Co2 Grafico',
-      imageTitle: 'Emissioni di CO2',
+      imageAlt: 'CO₂ Grafico',
+      imageTitle: 'Emissioni di CO₂',
       imageDescription:
-        'Illustra le emissioni di anidride carbonica (CO2) nel corso degli anni.',
+        'Illustra le emissioni di anidride carbonica (CO₂) nel corso degli anni.',
       routerLink: '/pages/co2'
     },
     {
       imageSrc: '../../assets/img/Metano.jpg',
       imageAlt: 'Metano Grafico',
       imageTitle: 'Emissioni di Metano',
-      imageDescription: 'Rappresenta le emissioni di metano (CH4) nel tempo.',
+      imageDescription: 'Rappresenta le emissioni di metano (CH₄) nel tempo.',
       routerLink: '/pages/methane'
     },
     {
-      imageSrc: '../../assets/img/No2.jpg',
-      imageAlt: 'No2 Grafico',
-      imageTitle: 'Emissioni di NO2',
+      imageSrc: '../../assets/img/N2o.jpg',
+      imageAlt: 'N₂O Grafico',
+      imageTitle: 'Emissioni di N₂O',
       imageDescription:
-        'Mostra le emissioni di ossido di azoto (NO2) nel corso degli anni.',
-      routerLink: '/pages/no2'
+        'Mostra le emissioni di protossido di azoto (N₂O) nel corso degli anni.',
+      routerLink: '/pages/n2o'
     },
     {
       imageSrc: '../../assets/img/Ghiaccio Polare.jpg',

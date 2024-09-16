@@ -1,51 +1,51 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { N2oApiResponse, N2oData } from '../../models/n2oData.model';
 import { DataService } from '../../services/data.service';
-import { No2Service } from '../../services/no2.service';
-import { No2ApiResponse, No2Data } from '../../models/no2Data.model';
+import { N2oService } from '../../services/n2o.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { isPlatformBrowser } from '@angular/common';
 import * as echarts from 'echarts';
 
 @Component({
-  selector: 'app-no2',
-  templateUrl: './no2.component.html',
-  styleUrl: './no2.component.scss',
+  selector: 'app-n2o',
+  templateUrl: './n2o.component.html',
+  styleUrl: './n2o.component.scss',
 })
-export class No2Component implements OnInit {
+export class N2oComponent implements OnInit {
   titleNo2 = 'Emissioni di NO2';
   contentNo2!: string;
   apiType = 'nitrous-oxide';
   legendNo2!: string;
-  no2Data: No2Data[] = [];
+  no2Data: N2oData[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chartOption: any;
 
   constructor(
     private dataService: DataService,
-    private no2Service: No2Service,
+    private n2oService: N2oService,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
     this.dataService.changeTitle(this.titleNo2);
-    this.contentNo2 = this.no2Service.getNo2Paragraph();
+    this.contentNo2 = this.n2oService.getN2oParagraph();
     this.dataService.changeContent(this.contentNo2);
     this.clientApi
-      .getData<No2ApiResponse>(this.apiType)
-      .subscribe((response: No2ApiResponse) => {
+      .getData<N2oApiResponse>(this.apiType)
+      .subscribe((response: N2oApiResponse) => {
         this.no2Data = response.nitrous;
         if (isPlatformBrowser(this.platformId)) {
-          this.createNo2Chart();
+          this.createN2oChart();
         }
       });
-    this.legendNo2 = this.no2Service.getNo2Legend();
+    this.legendNo2 = this.n2oService.getN2oLegend();
     this.dataService.changeLegend(this.legendNo2);
   }
 
-  createNo2Chart() {
+  createN2oChart() {
     if (isPlatformBrowser(this.platformId)) {
-      const chartDom = document.getElementById('no2Chart');
+      const chartDom = document.getElementById('n2oChart');
       const myChart = echarts.init(chartDom, null, {
         width: 'auto',
         height: 'auto',
@@ -59,7 +59,7 @@ export class No2Component implements OnInit {
 
       this.chartOption = {
         title: {
-          text: 'Nitrogen Dioxide',
+          text: 'Nitrous Oxide',
           left: 'auto',
           textStyle: {
             color: '#f79824',
@@ -100,7 +100,7 @@ export class No2Component implements OnInit {
           data: dates,
         },
         yAxis: {
-          name: 'No2 Levels (ppb)',
+          name: 'N₂O Levels (ppb)',
           min: 310,
           max: 350,
           axisLabel: {
@@ -141,9 +141,13 @@ export class No2Component implements OnInit {
         ],
       };
       myChart.setOption(this.chartOption);
-      window.addEventListener('resize', () => {
-        myChart.resize();
-      });
+      window.addEventListener(
+        'resize',
+        () => {
+          myChart.resize();
+        },
+        { passive: true },
+      );
     }
   }
 }

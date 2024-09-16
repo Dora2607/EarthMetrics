@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { No2Component } from './no2.component';
+import { N2oComponent } from './n2o.component';
 
-describe('No2Component', () => {
-  let component: No2Component;
-  let fixture: ComponentFixture<No2Component>;
+describe('N2oComponent', () => {
+  let component: N2oComponent;
+  let fixture: ComponentFixture<N2oComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [No2Component]
+      declarations: [N2oComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(No2Component);
+    fixture = TestBed.createComponent(N2oComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

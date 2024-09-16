@@ -5,9 +5,7 @@ import { HeroBannerComponent } from './components/hero-banner/hero-banner.compon
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatDividerModule } from '@angular/material/divider';
-import { RouterModule } from '@angular/router'; 
-
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HomeComponent, HeroBannerComponent, PageSelectorComponent],

@@ -100,7 +100,7 @@ export class MethaneComponent implements OnInit {
           data: dates,
         },
         yAxis: {
-          name: 'CH4 Levels (ppb)',
+          name: 'CH₄ Levels (ppm)',
           min: 1600,
           max: 2000,
           axisLabel: {
@@ -141,9 +141,13 @@ export class MethaneComponent implements OnInit {
         ],
       };
       myChart.setOption(this.chartOption);
-      window.addEventListener('resize', () => {
-        myChart.resize();
-      });
+      window.addEventListener(
+        'resize',
+        () => {
+          myChart.resize();
+        },
+        { passive: true },
+      );
     }
   }
 }
