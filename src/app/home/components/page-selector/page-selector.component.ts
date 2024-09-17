@@ -3,42 +3,42 @@ import { HomeImages } from '../../../models/homeImages.model';
 import { ImageDataService } from '../../../services/image-data.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
-
 @Component({
   selector: 'app-page-selector',
   templateUrl: './page-selector.component.html',
-  styleUrl: './page-selector.component.scss'
+  styleUrl: './page-selector.component.scss',
 })
-export class PageSelectorComponent implements OnInit{
+export class PageSelectorComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: false,
     margin: 40,
     mouseDrag: false,
     touchDrag: false,
     pullDrag: false,
-    navText: [ '<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    navText: [
+      '<i class="fa fa-chevron-left"></i>',
+      '<i class="fa fa-chevron-right"></i>',
+    ],
     dots: false,
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       960: {
-        items: 2
+        items: 2,
       },
       1280: {
-        items: 3
+        items: 3,
       },
     },
-    nav: true
-  }
-  
+    nav: true,
+  };
 
-  images: HomeImages[]=[];
+  images: HomeImages[] = [];
 
-  constructor(private imageData: ImageDataService){}
+  constructor(private imageData: ImageDataService) {}
 
   ngOnInit(): void {
-      this.images = this.imageData.getImages();
+    this.images = this.imageData.getImages();
   }
-
 }
