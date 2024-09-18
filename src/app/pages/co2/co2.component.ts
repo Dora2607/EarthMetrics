@@ -22,14 +22,14 @@ export class Co2Component implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private Co2Service: Co2Service,
+    private co2Service: Co2Service,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
     this.dataService.changeTitle(this.titleCo2);
-    this.contentCo2 = this.Co2Service.getCo2Paragraph();
+    this.contentCo2 = this.co2Service.getCo2Paragraph();
     this.dataService.changeContent(this.contentCo2);
     this.clientApi
       .getData<Co2ApiResponse>(this.apiType)
@@ -39,7 +39,7 @@ export class Co2Component implements OnInit {
           this.createCo2Chart();
         }
       });
-    this.legendCo2 = this.Co2Service.getCo2Legend();
+    this.legendCo2 = this.co2Service.getCo2Legend();
     this.dataService.changeLegend(this.legendCo2);
   }
 

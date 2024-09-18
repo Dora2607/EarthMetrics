@@ -36,14 +36,14 @@ export class MethaneComponent implements OnInit {
       .subscribe((response: MethaneApiResponse) => {
         this.methaneData = response.methane;
         if (isPlatformBrowser(this.platformId)) {
-          this.createChart();
+          this.createMethaneChart();
         }
       });
     this.legendMethane = this.methaneService.getMethaneLegend();
     this.dataService.changeLegend(this.legendMethane);
   }
 
-  createChart() {
+  createMethaneChart() {
     if (isPlatformBrowser(this.platformId)) {
       const chartDom = document.getElementById('methaneChart');
       const myChart = echarts.init(chartDom, 'null', {

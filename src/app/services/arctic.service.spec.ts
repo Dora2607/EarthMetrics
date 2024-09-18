@@ -14,6 +14,16 @@ describe('ArcticService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('getArcticParagraph should return a string', () => {
+    const paragraph = service.getArcticParagraph();
+    expect(typeof paragraph).toBe('string');
+  });
+
+  it('getArcticLegend should return a string', () => {
+    const legend = service.getArcticLegend();
+    expect(typeof legend).toBe('string');
+  });
+
   it('should convert the data to the correct type', () => {
     const data = {
       '197901': {

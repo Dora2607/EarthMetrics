@@ -24,7 +24,6 @@ export class TemperatureService {
    sono azioni fondamentali per mitigare l'aumento delle temperature globali.</p>
   `;
 
-
   private temperatureLegend = ` 
 
   <p>Questo grafico permette di visualizzare le variazioni delle anomalie della temperatura nel tempo.
@@ -40,12 +39,11 @@ export class TemperatureService {
   <strong>Land</strong>: Rappresenta l’anomalia della temperatura misurata sulla terraferma, in gradi Celsius.
   </p>`;
 
-
-  getTemperatureParagraph(){
+  getTemperatureParagraph() {
     return this.temperatureParagraph;
   }
 
-  getTemperatureLegend(){
+  getTemperatureLegend() {
     return this.temperatureLegend;
   }
 
@@ -54,12 +52,10 @@ export class TemperatureService {
     const year = Math.floor(timeNumber);
     const decimalPart = timeNumber - year;
     let month = Math.round(decimalPart * 12);
-    if(month===0){
+    if (month === 0) {
       month = 1;
     }
     const formattedMonth = ('0' + month).slice(-2);
     return `${formattedMonth}-${year}`;
   }
-
-
 }
