@@ -1,7 +1,7 @@
 @import "../../../../styles.scss";
 
 .pageSelectorContainer {
-  padding: 0.5rem 3rem 2rem 3rem;
+  padding: 0.5rem 2rem 2rem 2rem;
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2383c5be" fill-opacity="1" d="M0,288L0,64L240,64L240,160L480,160L480,128L720,128L720,224L960,224L960,192L1200,192L1200,128L1440,128L1440,0L1200,0L1200,0L960,0L960,0L720,0L720,0L480,0L480,0L240,0L240,0L0,0L0,0Z"></path></svg>');
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,7 +11,7 @@
   .sectionTitle {
     margin-top: 1rem;
     margin-bottom: 3rem;
-    text-align: center;
+    text-align: left;
     padding-top: 1rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -127,10 +127,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  
 
   .cardTitle {
     margin-block: 1rem;
+    
   }
 
   .cardDescription {
