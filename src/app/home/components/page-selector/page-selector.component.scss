@@ -5,7 +5,10 @@
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2383c5be" fill-opacity="1" d="M0,288L0,64L240,64L240,160L480,160L480,128L720,128L720,224L960,224L960,192L1200,192L1200,128L1440,128L1440,0L1200,0L1200,0L960,0L960,0L720,0L720,0L480,0L480,0L240,0L240,0L0,0L0,0Z"></path></svg>');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom center, 50%, 50%;
+  background-position:
+    bottom center,
+    50%,
+    50%;
   transition: all 0.2s ease-in-out;
 
   .sectionTitle {
@@ -15,44 +18,6 @@
     padding-top: 1rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  }
-
-  ::ng-deep .owl-theme .owl-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-60%);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-
-    .owl-next {
-      transform: translate(60%, 0);
-    }
-
-    .owl-prev {
-      left: 0px;
-      transform: translate(-60%, 0);
-    }
-  }
-
-  ::ng-deep .owl-theme .owl-nav .owl-next,
-  ::ng-deep .owl-theme .owl-nav .owl-prev {
-    background: $primary-color;
-    width: 2rem !important;
-    height: 2rem !important;
-    cursor: pointer !important;
-    border-radius: 50% !important;
-
-    &:hover {
-      background: $secondary-color;
-    }
-
-    i {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 }
 
@@ -74,23 +39,33 @@
 
     &:hover .cardContent .cardTitle {
       text-shadow: 3px 3px 5px $secondary-color;
-      padding: 0.5rem;
+      background: none;
+      backdrop-filter: none;
+      box-shadow: none;
+      border-radius: none;
+      color: white;
+      padding: 1.5rem 1rem;
+      .cardTitle {
+        padding: 0.8rem;
+        margin: 0;
+      }
     }
 
     &:hover .cardContent .cardDescription {
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      transition:
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
       text-shadow: 3px 3px 5px $secondary-color;
-      padding: 0.5rem;
+      color: white;
+      padding-left: 1rem;
+      margin: 0;
     }
 
     &::after {
       content: "";
       position: absolute;
-      inset: 0;
-      border: 2px solid white;
-      border-radius: inherit;
       opacity: 0;
       transition: 0.4s ease-in-out;
     }
@@ -101,7 +76,6 @@
 
     &:hover::after {
       opacity: 1;
-      inset: 1rem;
     }
   }
 }
@@ -121,18 +95,25 @@
 }
 
 .cardContent {
-  width: 80%;
+  width: -webkit-fill-available;
+  height: auto;
   position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  
+  top: 0;
+  left: 0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
 
   .cardTitle {
-    margin-block: 1rem;
-    
+    margin: 0;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    font-weight: 500;
+    color: black;
   }
 
   .cardDescription {
@@ -141,30 +122,51 @@
   }
 }
 
-@media (min-width: $breakpoint-small) {
-  .card a:hover::after {
-    opacity: 1;
-    inset: 3rem;
-  }
-}
-
 @media (min-width: $breakpoint-medium) {
   .pageSelectorContainer {
+    padding: 2rem 5rem;
     .sectionTitle {
       margin-bottom: 4rem;
     }
+    ::ng-deep .owl-theme .owl-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .owl-next {
+        transform: translate(60%, 0);
+      }
+
+      .owl-prev {
+        left: 0px;
+        transform: translate(-60%, 0);
+      }
+    }
+    ::ng-deep .owl-theme .owl-nav .owl-next,
+    ::ng-deep .owl-theme .owl-nav .owl-prev {
+      background: $primary-color;
+      width: 2rem !important;
+      height: 2rem !important;
+      cursor: pointer !important;
+      border-radius: 50% !important;
+
+      &:hover {
+        background: $secondary-color;
+      }
+
+      i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 }
 
-@media (min-width: $breakpoint-large) {
-  .pageSelectorContainer {
-    .sectionTitle {
-      margin-bottom: 5rem;
-    }
-  }
-
-  .card a:hover::after {
-    opacity: 1;
-    inset: 2.5rem;
-  }
+.pageSelectorContainer {
+  @include responsive-padding(1rem 2rem, 1rem 4rem, 1rem 6rem);
 }

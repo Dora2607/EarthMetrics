@@ -36,11 +36,10 @@
   }
 }
 
-// @media (min-width: $breakpoint-small) {
-//   .banner{
-//      .container {
-//     left: 35%;
-//   } 
-//   }
-
-// }
+.banner {
+  .container {
+    left: 0;
+    right: 0;
+    @include responsive-padding(1rem 2rem, 1rem 4rem, 1rem 6rem);
+  }
+}

@@ -12,26 +12,44 @@ export class PageSelectorComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: false,
     margin: 40,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
     navText: [
       '<i class="fa fa-chevron-left"></i>',
       '<i class="fa fa-chevron-right"></i>',
     ],
-    dots: false,
     responsive: {
       0: {
         items: 1,
+        mouseDrag: true,
+        touchDrag: true,
+        pullDrag: true,
+        nav: false,
+        dots: true,
+      },
+      600: {
+        items: 2,
+        mouseDrag: true,
+        touchDrag: true,
+        pullDrag: true,
+        nav: false,
+        dots: true,
       },
       960: {
         items: 2,
+        mouseDrag: false,
+        touchDrag: false,
+        pullDrag: false,
+        nav: true,
+        dots: false,
       },
       1280: {
         items: 3,
+        mouseDrag: false,
+        touchDrag: false,
+        pullDrag: false,
+        nav: true,
+        dots: false,
       },
     },
-    nav: true,
   };
 
   images: HomeImages[] = [];
