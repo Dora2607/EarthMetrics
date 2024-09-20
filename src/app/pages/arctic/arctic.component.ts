@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { ArcticService } from '../../services/arctic.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import {
   ArcticApiResponse,
@@ -8,6 +7,7 @@ import {
 } from '../../models/arcticData.model';
 import { isPlatformBrowser } from '@angular/common';
 import * as echarts from 'echarts';
+import { HtmlContentService } from '../../services/html-content.service';
 
 @Component({
   selector: 'app-arctic',
@@ -15,8 +15,8 @@ import * as echarts from 'echarts';
   styleUrl: './arctic.component.scss',
 })
 export class ArcticComponent implements OnInit {
-  titleArctic = 'Riduzione del Ghiaccio Polare';
-  contentArctic!: string;
+  titleArctic!: string;
+  paragraphArctic!: string;
   apiType = 'arctic';
   arcticData: ArcticDataArr[] = [];
   legendArctic!: string;
@@ -25,26 +25,30 @@ export class ArcticComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private arcticService: ArcticService,
+    private htmlContent: HtmlContentService,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
-    this.dataService.changeTitle(this.titleArctic);
-    this.contentArctic = this.arcticService.getArcticParagraph();
-    this.dataService.changeContent(this.contentArctic);
+    const arcticContent = this.htmlContent.getHtmlContent(this.apiType);
+    if (arcticContent) {
+      this.titleArctic = arcticContent.title;
+      this.dataService.changeTitle(this.titleArctic);
+      this.paragraphArctic = arcticContent.paragraph;
+      this.dataService.changeContent(this.paragraphArctic);
+      this.legendArctic = arcticContent.legend;
+      this.dataService.changeLegend(this.legendArctic);
+    }
     this.clientApi
       .getData<ArcticApiResponse>(this.apiType)
       .subscribe((response: ArcticApiResponse) => {
         const arcticObj = response.arcticData.data;
-        this.arcticData = this.arcticService.extractData(arcticObj);
+        this.arcticData = this.htmlContent.extractData(arcticObj);
         if (isPlatformBrowser(this.platformId)) {
           this.createArcticChart();
         }
       });
-    this.legendArctic = this.arcticService.getArcticLegend();
-    this.dataService.changeLegend(this.legendArctic);
   }
 
   createArcticChart() {

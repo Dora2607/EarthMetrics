@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { MethaneService } from '../../services/methane.service';
 import { MethaneApiResponse, MethaneData } from '../../models/methane.model';
 import { ClientAPIService } from '../../services/client-api.service';
 import * as echarts from 'echarts';
 import { isPlatformBrowser } from '@angular/common';
+import { HtmlContentService } from '../../services/html-content.service';
 
 @Component({
   selector: 'app-methane',
@@ -12,8 +12,8 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './methane.component.scss',
 })
 export class MethaneComponent implements OnInit {
-  titleMethane = 'Emissioni di Metano';
-  contentMethane!: string;
+  titleMethane!: string;
+  paragraphMethane!: string;
   apiType = 'methane';
   legendMethane!: string;
   methaneData: MethaneData[] = [];
@@ -22,15 +22,21 @@ export class MethaneComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private methaneService: MethaneService,
+    private htmlContent: HtmlContentService,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
-    this.dataService.changeTitle(this.titleMethane);
-    this.contentMethane = this.methaneService.getMethaneParagraph();
-    this.dataService.changeContent(this.contentMethane);
+    const methaneContent = this.htmlContent.getHtmlContent(this.apiType);
+    if (methaneContent) {
+      this.titleMethane = methaneContent.title;
+      this.dataService.changeTitle(this.titleMethane);
+      this.paragraphMethane = methaneContent.paragraph;
+      this.dataService.changeContent(this.paragraphMethane);
+      this.legendMethane = methaneContent.legend;
+      this.dataService.changeLegend(this.legendMethane);
+    }
     this.clientApi
       .getData<MethaneApiResponse>(this.apiType)
       .subscribe((response: MethaneApiResponse) => {
@@ -39,8 +45,6 @@ export class MethaneComponent implements OnInit {
           this.createMethaneChart();
         }
       });
-    this.legendMethane = this.methaneService.getMethaneLegend();
-    this.dataService.changeLegend(this.legendMethane);
   }
 
   createMethaneChart() {

@@ -1,10 +1,10 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { N2oApiResponse, N2oData } from '../../models/n2oData.model';
 import { DataService } from '../../services/data.service';
-import { N2oService } from '../../services/n2o.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { isPlatformBrowser } from '@angular/common';
 import * as echarts from 'echarts';
+import { HtmlContentService } from '../../services/html-content.service';
 
 @Component({
   selector: 'app-n2o',
@@ -12,8 +12,8 @@ import * as echarts from 'echarts';
   styleUrl: './n2o.component.scss',
 })
 export class N2oComponent implements OnInit {
-  titleNo2 = 'Emissioni di NO2';
-  contentNo2!: string;
+  titleNo2!: string;
+  paragraphNo2!: string;
   apiType = 'nitrous-oxide';
   legendNo2!: string;
   no2Data: N2oData[] = [];
@@ -22,15 +22,23 @@ export class N2oComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private n2oService: N2oService,
+
+    private htmlContent: HtmlContentService,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
-    this.dataService.changeTitle(this.titleNo2);
-    this.contentNo2 = this.n2oService.getN2oParagraph();
-    this.dataService.changeContent(this.contentNo2);
+    const n2oContent = this.htmlContent.getHtmlContent(this.apiType);
+    if (n2oContent) {
+      this.titleNo2 = n2oContent.title;
+      this.dataService.changeTitle(this.titleNo2);
+      this.paragraphNo2 = n2oContent.paragraph;
+      this.dataService.changeContent(this.paragraphNo2);
+      this.legendNo2 = n2oContent.legend;
+      this.dataService.changeLegend(this.legendNo2);
+    }
+
     this.clientApi
       .getData<N2oApiResponse>(this.apiType)
       .subscribe((response: N2oApiResponse) => {
@@ -39,8 +47,6 @@ export class N2oComponent implements OnInit {
           this.createN2oChart();
         }
       });
-    this.legendNo2 = this.n2oService.getN2oLegend();
-    this.dataService.changeLegend(this.legendNo2);
   }
 
   createN2oChart() {

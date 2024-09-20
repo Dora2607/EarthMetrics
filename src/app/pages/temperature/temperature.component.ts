@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { TemperatureService } from '../../services/temperature.service';
+
 import { ClientAPIService } from '../../services/client-api.service';
 import {
   TemperatureApiResponse,
@@ -8,6 +8,7 @@ import {
 } from '../../models/temperatureData.model';
 import { isPlatformBrowser } from '@angular/common';
 import * as echarts from 'echarts';
+import { HtmlContentService } from '../../services/html-content.service';
 
 @Component({
   selector: 'app-temperature',
@@ -15,8 +16,8 @@ import * as echarts from 'echarts';
   styleUrl: './temperature.component.scss',
 })
 export class TemperatureComponent implements OnInit {
-  titleTemperature = 'Temperature Globali';
-  contentTemperature!: string;
+  titleTemperature!: string;
+  paragraphTemperature!: string;
   apiType = 'temperature';
   legendTemperature!: string;
   temperatureData: TemperatureData[] = [];
@@ -25,15 +26,22 @@ export class TemperatureComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private temperatureService: TemperatureService,
+    private htmlContent: HtmlContentService,
     private clientApi: ClientAPIService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
   ngOnInit(): void {
-    this.dataService.changeTitle(this.titleTemperature);
-    this.contentTemperature = this.temperatureService.getTemperatureParagraph();
-    this.dataService.changeContent(this.contentTemperature);
+    const temperatureContent = this.htmlContent.getHtmlContent(this.apiType);
+    if (temperatureContent) {
+      this.titleTemperature = temperatureContent.title;
+      this.dataService.changeTitle(this.titleTemperature);
+      this.paragraphTemperature = temperatureContent.paragraph;
+      this.dataService.changeContent(this.paragraphTemperature);
+      this.legendTemperature = temperatureContent.legend;
+      this.dataService.changeLegend(this.legendTemperature);
+    }
+
     this.clientApi
       .getData<TemperatureApiResponse>(this.apiType)
       .subscribe((response: TemperatureApiResponse) => {
@@ -42,8 +50,6 @@ export class TemperatureComponent implements OnInit {
           this.createTemperatureChart();
         }
       });
-    this.legendTemperature = this.temperatureService.getTemperatureLegend();
-    this.dataService.changeLegend(this.legendTemperature);
   }
 
   createTemperatureChart() {
@@ -55,7 +61,7 @@ export class TemperatureComponent implements OnInit {
       });
 
       const dates = this.temperatureData.map((data) => {
-        return this.temperatureService.convertTime(data.time);
+        return this.htmlContent.convertTime(data.time);
       });
       const station = this.temperatureData.map((data) => data.station);
       const land = this.temperatureData.map((data) => data.land);
@@ -138,10 +144,13 @@ export class TemperatureComponent implements OnInit {
         ],
       };
       myChart.setOption(this.chartOption);
-      window.addEventListener('resize', () => {
-        myChart.resize();
-      },
-    { passive: true });
+      window.addEventListener(
+        'resize',
+        () => {
+          myChart.resize();
+        },
+        { passive: true },
+      );
     }
   }
 }
