@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Co2Component } from './co2.component';
-import { Co2Service } from '../../services/co2.service';
+import { HtmlContentService } from '../../services/html-content.service';
 import { DataService } from '../../services/data.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { PLATFORM_ID } from '@angular/core';
@@ -15,7 +14,7 @@ describe('Co2Component', () => {
   let component: Co2Component;
   let fixture: ComponentFixture<Co2Component>;
   let dataService: jasmine.SpyObj<DataService>;
-  let co2Service: jasmine.SpyObj<Co2Service>;
+  let htmlContentService: jasmine.SpyObj<HtmlContentService>;
   let clientApi: jasmine.SpyObj<ClientAPIService>;
 
   beforeEach(async () => {
@@ -24,16 +23,15 @@ describe('Co2Component', () => {
       'changeContent',
       'changeLegend',
     ]);
-    const spyCo2 = jasmine.createSpyObj('Co2Service', [
-      'getCo2Paragraph',
-      'getCo2Legend',
+    const spyHtmlContent = jasmine.createSpyObj('HtmlContentService', [
+      'getHtmlContent',
     ]);
     const spyClientApi = jasmine.createSpyObj('ClientAPIService', ['getData']);
     await TestBed.configureTestingModule({
       declarations: [Co2Component],
       providers: [
         { provide: DataService, useValue: spyData },
-        { provide: Co2Service, useValue: spyCo2 },
+        { provide: HtmlContentService, useValue: spyHtmlContent },
         { provide: ClientAPIService, useValue: spyClientApi },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
@@ -44,7 +42,9 @@ describe('Co2Component', () => {
     fixture = TestBed.createComponent(Co2Component);
     component = fixture.componentInstance;
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    co2Service = TestBed.inject(Co2Service) as jasmine.SpyObj<Co2Service>;
+    htmlContentService = TestBed.inject(
+      HtmlContentService,
+    ) as jasmine.SpyObj<HtmlContentService>;
     clientApi = TestBed.inject(
       ClientAPIService,
     ) as jasmine.SpyObj<ClientAPIService>;
@@ -118,18 +118,23 @@ describe('Co2Component', () => {
       ],
     };
 
+    const fakeContent = {
+      title: 'Fake Title',
+      paragraph: 'Fake Paragraph',
+      legend: 'Fake Legend',
+    };
+
+    htmlContentService.getHtmlContent.and.returnValue(fakeContent);
     dataService.changeTitle.and.callThrough();
-    co2Service.getCo2Paragraph.and.returnValue('Mock Paragraph');
     dataService.changeContent.and.callThrough();
-    co2Service.getCo2Legend.and.returnValue('Mock Legend');
     dataService.changeLegend.and.callThrough();
     clientApi.getData.and.returnValue(of(mockResponse));
 
     component.ngOnInit();
 
-    expect(dataService.changeTitle).toHaveBeenCalledWith('Emissioni di CO2');
-    expect(dataService.changeContent).toHaveBeenCalledWith('Mock Paragraph');
-    expect(dataService.changeLegend).toHaveBeenCalledWith('Mock Legend');
+    expect(dataService.changeTitle).toHaveBeenCalledWith('Fake Title');
+    expect(dataService.changeContent).toHaveBeenCalledWith('Fake Paragraph');
+    expect(dataService.changeLegend).toHaveBeenCalledWith('Fake Legend');
     expect(component.co2Data).toEqual(mockResponse.co2);
   });
 
@@ -161,6 +166,5 @@ describe('Co2Component', () => {
     spyOn(component, 'createCo2Chart').and.callThrough();
     component.ngOnInit();
     expect(component.createCo2Chart).toHaveBeenCalled();
-    
   });
 });

@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { N2oComponent } from './n2o.component';
 import { DataService } from '../../services/data.service';
-import { N2oService } from '../../services/n2o.service';
+import { HtmlContentService } from '../../services/html-content.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { PLATFORM_ID } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
@@ -15,7 +14,7 @@ describe('N2oComponent', () => {
   let component: N2oComponent;
   let fixture: ComponentFixture<N2oComponent>;
   let dataService: jasmine.SpyObj<DataService>;
-  let n2oService: jasmine.SpyObj<N2oService>;
+  let htmlContentService: jasmine.SpyObj<HtmlContentService>;
   let clientApi: jasmine.SpyObj<ClientAPIService>;
 
   beforeEach(async () => {
@@ -24,9 +23,8 @@ describe('N2oComponent', () => {
       'changeContent',
       'changeLegend',
     ]);
-    const spyN2o = jasmine.createSpyObj('N2oService', [
-      'getN2oParagraph',
-      'getN2oLegend',
+    const spyHtmlContent = jasmine.createSpyObj('HtmlContentService', [
+      'getHtmlContent',
     ]);
     const spyClientApi = jasmine.createSpyObj('ClientAPIService', ['getData']);
 
@@ -34,7 +32,7 @@ describe('N2oComponent', () => {
       declarations: [N2oComponent],
       providers: [
         { provide: DataService, useValue: spyData },
-        { provide: N2oService, useValue: spyN2o },
+        { provide: HtmlContentService, useValue: spyHtmlContent },
         { provide: ClientAPIService, useValue: spyClientApi },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
@@ -45,7 +43,9 @@ describe('N2oComponent', () => {
     fixture = TestBed.createComponent(N2oComponent);
     component = fixture.componentInstance;
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    n2oService = TestBed.inject(N2oService) as jasmine.SpyObj<N2oService>;
+    htmlContentService = TestBed.inject(
+      HtmlContentService,
+    ) as jasmine.SpyObj<HtmlContentService>;
     clientApi = TestBed.inject(
       ClientAPIService,
     ) as jasmine.SpyObj<ClientAPIService>;
@@ -119,18 +119,23 @@ describe('N2oComponent', () => {
       ],
     };
 
+    const fakeContent = {
+      title: 'Fake Title',
+      paragraph: 'Fake Paragraph',
+      legend: 'Fake Legend',
+    };
+
+    htmlContentService.getHtmlContent.and.returnValue(fakeContent);
     dataService.changeTitle.and.callThrough();
-    n2oService.getN2oParagraph.and.returnValue('Mock Paragraph');
     dataService.changeContent.and.callThrough();
-    n2oService.getN2oLegend.and.returnValue('Mock Legend');
     dataService.changeLegend.and.callThrough();
     clientApi.getData.and.returnValue(of(mockResponse));
 
     component.ngOnInit();
 
-    expect(dataService.changeTitle).toHaveBeenCalledWith('Emissioni di NO2');
-    expect(dataService.changeContent).toHaveBeenCalledWith('Mock Paragraph');
-    expect(dataService.changeLegend).toHaveBeenCalledWith('Mock Legend');
+    expect(dataService.changeTitle).toHaveBeenCalledWith('Fake Title');
+    expect(dataService.changeContent).toHaveBeenCalledWith('Fake Paragraph');
+    expect(dataService.changeLegend).toHaveBeenCalledWith('Fake Legend');
     expect(component.no2Data).toEqual(mockResponse.nitrous);
   });
 

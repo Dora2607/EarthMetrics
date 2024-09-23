@@ -1,21 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TemperatureComponent } from './temperature.component';
-
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { DataService } from '../../services/data.service';
-import { TemperatureService } from '../../services/temperature.service';
+import { HtmlContentService } from '../../services/html-content.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { PLATFORM_ID } from '@angular/core';
 import { of } from 'rxjs';
-import { TemperatureApiResponse} from '../../models/temperatureData.model';
+import { TemperatureApiResponse } from '../../models/temperatureData.model';
 import * as echarts from 'echarts';
 
 describe('TemperatureComponent', () => {
   let component: TemperatureComponent;
   let fixture: ComponentFixture<TemperatureComponent>;
   let dataService: jasmine.SpyObj<DataService>;
-  let temperatureService: jasmine.SpyObj<TemperatureService>;
+  let htmlContentService: jasmine.SpyObj<HtmlContentService>;
   let clientApi: jasmine.SpyObj<ClientAPIService>;
 
   beforeEach(async () => {
@@ -24,10 +23,9 @@ describe('TemperatureComponent', () => {
       'changeContent',
       'changeLegend',
     ]);
-    const spyTemperature = jasmine.createSpyObj('TemperatureService', [
-      'getTemperatureParagraph',
-      'getTemperatureLegend',
-      'convertTime'
+    const spyHtmlContent = jasmine.createSpyObj('HtmlContentService', [
+      'getHtmlContent',
+      'convertTime',
     ]);
     const spyClientApi = jasmine.createSpyObj('ClientAPIService', ['getData']);
 
@@ -36,7 +34,7 @@ describe('TemperatureComponent', () => {
 
       providers: [
         { provide: DataService, useValue: spyData },
-        { provide: TemperatureService, useValue: spyTemperature },
+        { provide: HtmlContentService, useValue: spyHtmlContent },
         { provide: ClientAPIService, useValue: spyClientApi },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
@@ -47,9 +45,9 @@ describe('TemperatureComponent', () => {
     fixture = TestBed.createComponent(TemperatureComponent);
     component = fixture.componentInstance;
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    temperatureService = TestBed.inject(
-      TemperatureService,
-    ) as jasmine.SpyObj<TemperatureService>;
+    htmlContentService = TestBed.inject(
+      HtmlContentService,
+    ) as jasmine.SpyObj<HtmlContentService>;
     clientApi = TestBed.inject(
       ClientAPIService,
     ) as jasmine.SpyObj<ClientAPIService>;
@@ -76,10 +74,10 @@ describe('TemperatureComponent', () => {
           land: '-0.16',
         },
       ],
-      error: null
+      error: null,
     };
     clientApi.getData.and.returnValue(of(mockResponse));
-    temperatureService.convertTime.and.callFake((time: string) => time);
+    htmlContentService.convertTime.and.callFake((time: string) => time);
     fixture.detectChanges();
   });
 
@@ -121,27 +119,28 @@ describe('TemperatureComponent', () => {
           land: '-0.16',
         },
       ],
-      error: null
+      error: null,
     };
 
+    const fakeContent = {
+      title: 'Fake Title',
+      paragraph: 'Fake Paragraph',
+      legend: 'Fake Legend',
+    };
+
+    htmlContentService.getHtmlContent.and.returnValue(fakeContent);
     dataService.changeTitle.and.callThrough();
-    temperatureService.getTemperatureParagraph.and.returnValue(
-      'Mock Paragraph',
-    );
     dataService.changeContent.and.callThrough();
-    temperatureService.getTemperatureLegend.and.returnValue('Mock Legend');
     dataService.changeLegend.and.callThrough();
     clientApi.getData.and.returnValue(of(mockResponse));
-
     component.ngOnInit();
-
-    expect(dataService.changeTitle).toHaveBeenCalledWith('Temperature Globali');
-    expect(dataService.changeContent).toHaveBeenCalledWith('Mock Paragraph');
-    expect(dataService.changeLegend).toHaveBeenCalledWith('Mock Legend');
+    expect(dataService.changeTitle).toHaveBeenCalledWith('Fake Title');
+    expect(dataService.changeContent).toHaveBeenCalledWith('Fake Paragraph');
+    expect(dataService.changeLegend).toHaveBeenCalledWith('Fake Legend');
     expect(component.temperatureData).toEqual(mockResponse.result);
   });
 
-  it('should create temperature chart',()=>{
+  it('should create temperature chart', () => {
     component.temperatureData = [
       { time: '1880.04', station: '-0.28', land: '-0.20' },
       { time: '1880.13', station: '-0.46', land: '-0.25' },
@@ -154,7 +153,5 @@ describe('TemperatureComponent', () => {
     component.ngOnInit();
 
     expect(component.createTemperatureChart).toHaveBeenCalled();
-  })
-
-  
+  });
 });

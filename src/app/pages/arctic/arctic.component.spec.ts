@@ -6,7 +6,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { ArcticService } from '../../services/arctic.service';
+import { HtmlContentService } from '../../services/html-content.service';
 import { ArcticApiResponse } from '../../models/arcticData.model';
 import * as echarts from 'echarts';
 
@@ -14,7 +14,7 @@ describe('ArcticComponent', () => {
   let component: ArcticComponent;
   let fixture: ComponentFixture<ArcticComponent>;
   let dataService: jasmine.SpyObj<DataService>;
-  let arcticService: jasmine.SpyObj<ArcticService>;
+  let htmlContentService: jasmine.SpyObj<HtmlContentService>;
   let clientApi: jasmine.SpyObj<ClientAPIService>;
 
   beforeEach(async () => {
@@ -23,9 +23,8 @@ describe('ArcticComponent', () => {
       'changeContent',
       'changeLegend',
     ]);
-    const spyArctic = jasmine.createSpyObj('ArcticService', [
-      'getArcticParagraph',
-      'getArcticLegend',
+    const spyHtmlContent = jasmine.createSpyObj('HtmlContentService', [
+      'getHtmlContent',
       'extractData',
     ]);
     const spyClientApi = jasmine.createSpyObj('ClientAPIService', ['getData']);
@@ -33,7 +32,7 @@ describe('ArcticComponent', () => {
       declarations: [ArcticComponent],
       providers: [
         { provide: DataService, useValue: spyData },
-        { provide: ArcticService, useValue: spyArctic },
+        { provide: HtmlContentService, useValue: spyHtmlContent },
         { provide: ClientAPIService, useValue: spyClientApi },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
@@ -44,9 +43,9 @@ describe('ArcticComponent', () => {
     fixture = TestBed.createComponent(ArcticComponent);
     component = fixture.componentInstance;
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    arcticService = TestBed.inject(
-      ArcticService,
-    ) as jasmine.SpyObj<ArcticService>;
+    htmlContentService = TestBed.inject(
+      HtmlContentService,
+    ) as jasmine.SpyObj<HtmlContentService>;
     clientApi = TestBed.inject(
       ClientAPIService,
     ) as jasmine.SpyObj<ClientAPIService>;
@@ -104,7 +103,7 @@ describe('ArcticComponent', () => {
       },
     ];
     clientApi.getData.and.returnValue(of(mockResponse));
-    arcticService.extractData.and.returnValue(mockData);
+    htmlContentService.extractData.and.returnValue(mockData);
     fixture.detectChanges();
   });
 
@@ -176,21 +175,23 @@ describe('ArcticComponent', () => {
         monthlyMean: 21.27,
       },
     ];
+    const fakeContent = {
+      title: 'Fake Title',
+      paragraph: 'Fake Paragraph',
+      legend: 'Fake Legend',
+    };
 
+    htmlContentService.getHtmlContent.and.returnValue(fakeContent);
     dataService.changeTitle.and.callThrough();
-    arcticService.getArcticParagraph.and.returnValue('Mock Paragraph');
     dataService.changeContent.and.callThrough();
-    arcticService.getArcticLegend.and.returnValue('Mock Legend');
     dataService.changeLegend.and.callThrough();
     clientApi.getData.and.returnValue(of(mockResponse));
 
     component.ngOnInit();
 
-    expect(dataService.changeTitle).toHaveBeenCalledWith(
-      'Riduzione del Ghiaccio Polare',
-    );
-    expect(dataService.changeContent).toHaveBeenCalledWith('Mock Paragraph');
-    expect(dataService.changeLegend).toHaveBeenCalledWith('Mock Legend');
+    expect(dataService.changeTitle).toHaveBeenCalledWith('Fake Title');
+    expect(dataService.changeContent).toHaveBeenCalledWith('Fake Paragraph');
+    expect(dataService.changeLegend).toHaveBeenCalledWith('Fake Legend');
     expect(component.arcticData).toEqual(mockData);
   });
 

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MethaneComponent } from './methane.component';
 import { DataService } from '../../services/data.service';
-import { MethaneService } from '../../services/methane.service';
+import { HtmlContentService } from '../../services/html-content.service';
 import { ClientAPIService } from '../../services/client-api.service';
 import { PLATFORM_ID } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
@@ -15,7 +15,7 @@ describe('MethaneComponent', () => {
   let component: MethaneComponent;
   let fixture: ComponentFixture<MethaneComponent>;
   let dataService: jasmine.SpyObj<DataService>;
-  let methaneService: jasmine.SpyObj<MethaneService>;
+  let htmlContentService: jasmine.SpyObj<HtmlContentService>;
   let clientApi: jasmine.SpyObj<ClientAPIService>;
 
   beforeEach(async () => {
@@ -24,9 +24,8 @@ describe('MethaneComponent', () => {
       'changeContent',
       'changeLegend',
     ]);
-    const spyMethane = jasmine.createSpyObj('MethaneService', [
-      'getMethaneParagraph',
-      'getMethaneLegend',
+    const spyHtmlContent = jasmine.createSpyObj('HtmlContentService', [
+      'getHtmlContent',
     ]);
     const spyClientApi = jasmine.createSpyObj('ClientAPIService', ['getData']);
 
@@ -34,7 +33,7 @@ describe('MethaneComponent', () => {
       declarations: [MethaneComponent],
       providers: [
         { provide: DataService, useValue: spyData },
-        { provide: MethaneService, useValue: spyMethane },
+        { provide: HtmlContentService, useValue: spyHtmlContent },
         { provide: ClientAPIService, useValue: spyClientApi },
         { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
@@ -45,9 +44,9 @@ describe('MethaneComponent', () => {
     fixture = TestBed.createComponent(MethaneComponent);
     component = fixture.componentInstance;
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    methaneService = TestBed.inject(
-      MethaneService,
-    ) as jasmine.SpyObj<MethaneService>;
+    htmlContentService = TestBed.inject(
+      HtmlContentService,
+    ) as jasmine.SpyObj<HtmlContentService>;
     clientApi = TestBed.inject(
       ClientAPIService,
     ) as jasmine.SpyObj<ClientAPIService>;
@@ -120,19 +119,22 @@ describe('MethaneComponent', () => {
         },
       ],
     };
+    const fakeContent = {
+      title: 'Fake Title',
+      paragraph: 'Fake Paragraph',
+      legend: 'Fake Legend',
+    };
 
+    htmlContentService.getHtmlContent.and.returnValue(fakeContent);
     dataService.changeTitle.and.callThrough();
-    methaneService.getMethaneParagraph.and.returnValue('Mock Paragraph');
     dataService.changeContent.and.callThrough();
-    methaneService.getMethaneLegend.and.returnValue('Mock Legend');
     dataService.changeLegend.and.callThrough();
     clientApi.getData.and.returnValue(of(mockResponse));
-
     component.ngOnInit();
 
-    expect(dataService.changeTitle).toHaveBeenCalledWith('Emissioni di Metano');
-    expect(dataService.changeContent).toHaveBeenCalledWith('Mock Paragraph');
-    expect(dataService.changeLegend).toHaveBeenCalledWith('Mock Legend');
+    expect(dataService.changeTitle).toHaveBeenCalledWith('Fake Title');
+    expect(dataService.changeContent).toHaveBeenCalledWith('Fake Paragraph');
+    expect(dataService.changeLegend).toHaveBeenCalledWith('Fake Legend');
     expect(component.methaneData).toEqual(mockResponse.methane);
   });
 
