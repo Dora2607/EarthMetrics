@@ -18,12 +18,12 @@ export class AppComponent implements OnInit {
       {
         name: 'description',
         content:
-          "EarthMetrics è un'applicazione per monitorare il cambiamento climatico attraverso dashboard interattive che visualizzano dati su temperature globali, CO2, metano, NO2 e ghiaccio polare.",
+          "Benvenuto su EarthMetrics, l’applicazione web che ti offre una panoramica completa sui parametri chiave del cambiamento climatico. Attraverso grafici interattivi e dati aggiornati, EarthMetrics ti permette di esplorare l’evoluzione di fattori cruciali come la temperatura globale, le emissioni di CO2, N2O, metano e l’estensione del ghiaccio polare.",
       },
       {
         name: 'keywords',
         content:
-          'cambiamento climatico, temperature globali, CO2, metano, NO2, ghiaccio polare, monitoraggio ambientale, emissioni',
+          'cambiamento climatico, temperature globali, CO2, metano, N2o, ghiaccio polare, monitoraggio ambientale, emissioni',
       },
       {
         property: 'og:title',
@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
       {
         property: 'og:description',
         content:
-          'Il cambiamento climatico è una sfida urgente e complessa causata principalmente dalle attività umane, come l’emissione di gas serra e la deforestazione. È fondamentale parlarne per aumentare la consapevolezza, promuovere azioni concrete e informare le decisioni politiche e individuali.',
+          'Benvenuto su EarthMetrics, l’applicazione web che ti offre una panoramica completa sui parametri chiave del cambiamento climatico. Attraverso grafici interattivi e dati aggiornati, EarthMetrics ti permette di esplorare l’evoluzione di fattori cruciali come la temperatura globale, le emissioni di CO2, N2O, metano e l’estensione del ghiaccio polare.',
       },
-      { property: 'og:image', content: '/' },
-      { property: 'og:url', content: '/' },
+      { property: 'og:image', content: 'https://opengraph.b-cdn.net/production/images/f67d6850-ba3a-4f65-b0c3-c8cdc6106d66.png?token=UfHqnN_x3w5SIECoNI-KBg5CcSlrUgtt52XKH2ev-lU&height=830&width=800&expires=33263114268' },
+      { property: 'og:url', content: 'https://earthmetrics-370b2.web.app/' },
     ]);
   }
 }
