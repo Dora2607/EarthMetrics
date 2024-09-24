@@ -1,7 +1,7 @@
 # EarthMetrics
 
 ## Descrizione
-EarthMetrics è un'applicazione web che fornisce una panoramica sui parametri che incidono sul cambiamento climatico attraverso l'uso di grafici. L'app permette di visualizzare dati su temperatura, emissioni di CO2, N2O, metano e l'estensione del ghiaccio polare. I grafici coprono archi temporali ampi, permettendo di osservare l'evoluzione di questi parametri nel tempo.
+EarthMetrics è un'applicazione web che fornisce una panoramica sui parametri che incidono sul cambiamento climatico attraverso l'uso di grafici. L'app permette di visualizzare dati su temperatura, emissioni di CO2, N2O, metano e l'estensione del ghiaccio polare. I grafici coprono archi temporali ampi, permettendo di osservare l'evoluzione di questi parametri nel tempo. L'applicazione è basata sulle API fornite da (https://global-warming.org/).  
 
 ## Link
 
@@ -19,10 +19,10 @@ Dalla toolbar, cliccando l'icona in alto a destra, è possibile selezionare la m
 
 2. Attraverso lo slider posto infondo alla pagina.
 ![Page Selector](/img-readme/pageSelector.png)
-Cliccando su una delle card a disposizione di viene reindirizzati al grafico che si preferisce.
+Cliccando su una delle card a disposizione si viene reindirizzati al grafico che si preferisce.
 ![Page Selector 2](/img-readme/pageSelector2.png)
 
-I grafici sono interattivi, è possibile decidere ingradire l'arco temporale di interesse, passare da un grafico a linea ad uno a barre, oppure resettare le impostazioni iniziali. 
+I grafici sono interattivi, è possibile decidere di ingradire l'arco temporale di interesse, passare da un grafico a linea ad uno a barre, oppure resettare le impostazioni iniziali. 
 ![Chart 1](/img-readme/chart1.png)
 ![Chart 2](/img-readme/chart2.png)
 ![Chart 3](/img-readme/chart3.png)
@@ -82,7 +82,7 @@ EarthMetrics include le seguenti funzionalità:
 - **Temperature**: Visualizza i dati sulla temperatura globale.
 - **CO2**: Visualizza i dati sulle emissioni di CO2.
 - **Metano**: Visualizza i dati sulle emissioni di metano.
-- **NO2**: Visualizza i dati sulle emissioni di N2O.
+- **N2O**: Visualizza i dati sulle emissioni di N2O.
 - **Ghiaccio Polare**: Visualizza i dati sull’estensione del ghiaccio polare.
 - **Design Responsive**: L’app è ottimizzata per dispositivi mobili, tablet e desktop.
 - **Modalità Light/Dark**: Passa dalla modalità chiara a quella scura tramite la toolbar.
@@ -102,7 +102,7 @@ La componente `HomeComponent` funge da layout principale per la pagina iniziale 
 
 La componente `PagesComponent` funge da layout per le sue sottocomponenti, gestendo la visualizzazione dei titoli, dei contenuti e delle leggende dei grafici. Utilizza il servizio `DataService` per aggiornare dinamicamente il titolo, il contenuto e la leggenda in base ai dati ricevuti. La struttura HTML della componente include un `router-outlet` per caricare le sottocomponenti specifiche (come `TemperatureComponent`, `Co2Component`, ecc.) e visualizzare i relativi grafici.  
 
-Ogni sottocomponente viene caricata in lazy loading e utilizza `ngx-echarts` e 'apache-echarts' per creare grafici interattivi basati sui dati ricevuti dall’API. Le sottocomponenti sono: 
+Ogni sottocomponente viene caricata in lazy loading e utilizza `ngx-echarts` e `apache-echarts` per creare grafici interattivi basati sui dati ricevuti dall’API. Le sottocomponenti sono: 
 
 - **TemperatureComponent**: Componente per la visualizzazione dei dati sulla temperatura globale.
 - **Co2Component**: Componente per la visualizzazione dei dati sulle emissioni di CO2.
@@ -127,41 +127,31 @@ Anche se le operazioni eseguite sono le medesime, ogni componente lavora con dat
 ### Models
 La cartella `models` contiene le interface che rappresentano i dati recuperati dall'API e i vari contenuti che popoleranno il sito.  
 Essi sono: 
-1. **arcticData**: Modello per i dati relativi all’estensione del ghiaccio polare.
-2. **co2Data**: Modello per i dati relativi alle emissioni di CO2.
-3. **methaneData**: Modello per i dati relativi alle emissioni di metano.
-4. **n2oData**: Modello per i dati relativi alle emissioni di N2O.
-5. **temperatureData**: Modello per i dati relativi alla temperatura globale.
-6. **homeImages**: Modello per le immagini utilizzate nella home page.
-7. **htmlContent**: Modello per i contenuti HTML utilizzati nell’applicazione.
+- **arcticData**: Modello per i dati relativi all’estensione del ghiaccio polare.
+- **co2Data**: Modello per i dati relativi alle emissioni di CO2.
+- **methaneData**: Modello per i dati relativi alle emissioni di metano.
+- **n2oData**: Modello per i dati relativi alle emissioni di N2O.
+- **temperatureData**: Modello per i dati relativi alla temperatura globale.
+- **homeImages**: Modello per le immagini utilizzate nella home page.
+- **htmlContent**: Modello per i contenuti HTML utilizzati nell’applicazione.
 
 ### Services
 I servizi realizzati sono: 
 
-#### ClientAPIService
+- **ClientAPIService**: Il servizio `ClientAPIService` gestisce le chiamate API per recuperare i dati. Utilizza `HttpClient` per effettuare richieste GET a un endpoint specifico, basato sul tipo di API (`apiType`). Il metodo `getData` restituisce un `Observable` dei dati recuperati. In caso di errore, il metodo `handleError` gestisce l'errore e restituisce un messaggio di errore appropriato.
 
-Il servizio `ClientAPIService` gestisce le chiamate API per recuperare i dati. Utilizza `HttpClient` per effettuare richieste GET a un endpoint specifico, basato sul tipo di API (`apiType`). Il metodo `getData` restituisce un `Observable` dei dati recuperati. In caso di errore, il metodo `handleError` gestisce l'errore e restituisce un messaggio di errore appropriato.
+- **DataService**: Il servizio `DataService` gestisce la comunicazione e l'aggiornamento dei dati tra le componenti. Utilizza `BehaviorSubject` per mantenere e aggiornare il titolo, il contenuto e la leggenda delle sezioni. I metodi `changeTitle`, `changeContent` e `changeLegend` aggiornano i rispettivi `BehaviorSubject`, permettendo alle componenti di osservare e reagire ai cambiamenti.
 
-#### DataService
+- **HtmlContentService**: Il servizio `HtmlContentService` fornisce contenuti HTML specifici per le diverse componenti. Il metodo `getHtmlContent` restituisce il contenuto HTML corrispondente a una chiave specifica (ad esempio, 'temperature', 'nitrous-oxide', ecc.). Inoltre, il servizio include metodi per convertire il tempo in un formato leggibile e per estrarre dati da una risposta API.
 
-Il servizio `DataService` gestisce la comunicazione e l'aggiornamento dei dati tra le componenti. Utilizza `BehaviorSubject` per mantenere e aggiornare il titolo, il contenuto e la leggenda delle sezioni. I metodi `changeTitle`, `changeContent` e `changeLegend` aggiornano i rispettivi `BehaviorSubject`, permettendo alle componenti di osservare e reagire ai cambiamenti.
+- **ThemeManagerService**: Il servizio `ThemeManagerService` gestisce il tema dell'applicazione (chiaro o scuro). Utilizza un segnale (`signal`) per mantenere lo stato del tema corrente. Il costruttore applica il tema appropriato al documento HTML. Il metodo `toggleTheme` consente di alternare tra il tema chiaro e quello scuro.
 
-#### HtmlContentService
-
-Il servizio `HtmlContentService` fornisce contenuti HTML specifici per le diverse componenti. Il metodo `getHtmlContent` restituisce il contenuto HTML corrispondente a una chiave specifica (ad esempio, 'temperature', 'nitrous-oxide', ecc.). Inoltre, il servizio include metodi per convertire il tempo in un formato leggibile e per estrarre dati da una risposta API.
-
-#### ThemeManagerService
-
-Il servizio `ThemeManagerService` gestisce il tema dell'applicazione (chiaro o scuro). Utilizza un segnale (`signal`) per mantenere lo stato del tema corrente. Il costruttore applica il tema appropriato al documento HTML. Il metodo `toggleTheme` consente di alternare tra il tema chiaro e quello scuro.
-
-#### ImageDataService
-
-Il servizio `ImageDataService` fornisce i dati delle immagini utilizzate nella componente `PageSelectorComponent`. Contiene un array di oggetti che rappresentano le immagini, ciascuno con il percorso dell'immagine, il testo alternativo, il titolo, la descrizione e il link di navigazione. Il metodo `getImages` restituisce questo array di immagini, permettendo alla componente `PageSelectorComponent` di accedere ai dati e visualizzarli nello slider.
+- **ImageDataService**: Il servizio `ImageDataService` fornisce i dati delle immagini utilizzate nella componente `PageSelectorComponent`. Contiene un array di oggetti che rappresentano le immagini, ciascuno con il percorso dell'immagine, il testo alternativo, il titolo, la descrizione e il link di navigazione. Il metodo `getImages` restituisce questo array di immagini, permettendo alla componente `PageSelectorComponent` di accedere ai dati e visualizzarli nello slider.
 
 
 ### Shared
 
-- Il modulo `angular-material.module.ts` importa e configura i componenti di Angular Material, fornendo un set di strumenti UI moderni e reattivi per l'applicazione. 
+- Il modulo `angular-material` importa e configura i componenti di Angular Material, fornendo un set di strumenti UI moderni e reattivi per l'applicazione. 
 - La cartella `animations` contiene file ts per gestire le animazioni dell'applicazione.
 - La componente `footer` visualizza il footer dell'applicazione, fornendo informazioni e link utili. 
 - La componente `sidenav` visualizza la barra laterale di navigazione e permette agli utenti di navigare tra le diverse sezioni dell'applicazione. Inoltre, la `SidenavComponent` integra il servizio `ThemeManagerService` per gestire il tema dell'applicazione (chiaro o scuro) e include un metodo `toggleTheme` per alternare tra i temi.
